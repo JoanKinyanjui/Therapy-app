@@ -8,6 +8,9 @@
       "expo-router"
     ],
     "name": "therapy-app",
-    "slug": "therapy-app"
+    "slug": "therapy-app",
+    "assetBundlePatterns": [
+      "assets/fonts/"
+    ]
   }
 }
