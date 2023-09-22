@@ -4,7 +4,7 @@ import {COLORS,FONTS,SIZES} from '../../constants';
 const styles = StyleSheet.create({
     container:{
      width:"100%",
-     height:"100%",
+     height:"screenHeight",
      backgroundColor:"white",
     },
     image:{
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     checkboxDiv:{
         flex:1,
         flexDirection:'row',
-        alignItems:"center !important",
+        alignItems:"center",
      },
      forgotPasswordDiv:{
          flex:1,

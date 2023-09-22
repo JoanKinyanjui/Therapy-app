@@ -1,9 +1,10 @@
 import React from 'react'
 import { SafeAreaView, ScrollView, View } from 'react-native'
-import { SignUp } from '../components'
+import { Home } from '../components'
 import { Stack } from 'expo-router'
+import BottomNav from '../components/BottomNavigation/BottomNav'
 
-function signUp() {
+function home() {
   return (
     <SafeAreaView>
 
@@ -14,7 +15,8 @@ function signUp() {
 
     <ScrollView showsVerticalScrollIndicator={false}>
     <View>
-          <SignUp />
+          <Home />
+          <BottomNav />
     </View>
     </ScrollView>
        
@@ -22,4 +24,4 @@ function signUp() {
   )
 }
 
-export default signUp
+export default home
