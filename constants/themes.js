@@ -13,6 +13,7 @@ const SIZES= {
     xSmall: 10,
     small:13,
     medium: 16,
+    midLarge:20,
     large: 24,
    
 }

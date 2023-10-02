@@ -19,8 +19,8 @@ const IndexPage =()=>{
            />
            <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{flex:1}} >
-                {/* <Account /> */}
-                <Home />
+                <Login />
+                {/* <Home /> */}
                 <BottomNav />
                 {/* <Questionnaire /> */}
                 {/* <Match /> */}

@@ -1,12 +1,21 @@
 import React from 'react'
-import { View } from 'react-native'
+import { SafeAreaView, ScrollView, View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
+import { Stack } from 'expo-router'
+import { Favourites } from '../components'
+
 
 function favourites() {
   return (
-    <View>
-         <BottomNav />
-    </View>
+    <SafeAreaView>
+      <Stack.Screen options={{headerShown:false} }  headerTitle=''/>
+      <ScrollView>
+        <View>
+          <Favourites />
+          <BottomNav />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

@@ -1,10 +1,10 @@
+import { Stack } from 'expo-router'
 import React from 'react'
 import { SafeAreaView, ScrollView, View } from 'react-native'
-import { Home, Messages } from '../components'
-import { Stack } from 'expo-router'
+import { Account } from '../components'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 
-function home() {
+function account() {
   return (
     <SafeAreaView>
 
@@ -15,7 +15,7 @@ function home() {
 
     <ScrollView showsVerticalScrollIndicator={false}>
     <View>
-          <Messages />
+          <Account />
           <BottomNav />
     </View>
     </ScrollView>
@@ -24,4 +24,4 @@ function home() {
   )
 }
 
-export default home
+export default account

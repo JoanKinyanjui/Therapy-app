@@ -1,10 +1,11 @@
-import React from 'react'
-import { SafeAreaView, ScrollView, View } from 'react-native'
-import { Home, Messages } from '../components'
 import { Stack } from 'expo-router'
+import React from 'react'
+import { SafeAreaView, ScrollView } from 'react-native'
+import { BookAppointment } from '../components'
+import { View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 
-function home() {
+function Book() {
   return (
     <SafeAreaView>
 
@@ -15,7 +16,7 @@ function home() {
 
     <ScrollView showsVerticalScrollIndicator={false}>
     <View>
-          <Messages />
+          <BookAppointment />
           <BottomNav />
     </View>
     </ScrollView>
@@ -24,4 +25,4 @@ function home() {
   )
 }
 
-export default home
+export default Book;
