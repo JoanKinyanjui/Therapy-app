@@ -1,27 +1,25 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, ImageBackground, StyleSheet } from 'react-native';
 
-const Background = () => {
-  const screenHeight = Dimensions.get('window').height;
-
+const Background = ({ children }) => {
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/images/background.png')} style={{ ...styles.backgroundImage, height: screenHeight }} />
-    </View>
+  <View style={{backgroundColor:"white"}}>
+      <ImageBackground
+      source={require('../assets/images/background2.png')}
+      style={styles.background}
+    >
+      {children}
+    </ImageBackground>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
+    height:"max-height",
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backgroundImage: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'cover', // You can adjust the image resize mode as needed
+    justifyContent: 'center', // Center content vertically
   },
 });
 

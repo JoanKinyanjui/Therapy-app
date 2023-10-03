@@ -16,7 +16,7 @@ const CustomHeader = ({ title, showBackButton, showAccountPic }) => {
       {showAccountPic && (
        <Link href='/account'>
         <TouchableOpacity>
-          <Image source={require("../../assets/icons/account.png")} />
+        <Image source={{uri:"https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=1600"}} style={styles.accountStyle}/>
         </TouchableOpacity>
         </Link>
       )}

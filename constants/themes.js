@@ -6,7 +6,7 @@ const COLORS = {
      uni:"#646363",
 }
 const FONTS = {
-    primary:"Poppins-Regular",
+    primary:"Helvetica",
     secondary:"PlayfairDisplay-Regular",
 }
 const SIZES= {

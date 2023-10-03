@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import { Stack } from 'expo-router'
 import { Favourites } from '../components'
+import Background from '../components/Background'
 
 
 function favourites() {
@@ -10,10 +11,10 @@ function favourites() {
     <SafeAreaView>
       <Stack.Screen options={{headerShown:false} }  headerTitle=''/>
       <ScrollView>
-        <View>
+      <Background>
           <Favourites />
           <BottomNav />
-        </View>
+      </Background>
       </ScrollView>
     </SafeAreaView>
   )

@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "screenHeight",
     position: "relative",
+    fontFamily:"Helvetica",
   },
   topContainer: {
     width: "90%",
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     width: 270,
     height: 130,
     marginBottom: 25,
+    position: "relative",
   },
   backgroundImage: {
     flex: 1,
@@ -54,11 +56,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   gridItem: {
+    width:250,
     flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 10,
     paddingLeft: 10,
     paddingHorizontal: 8,
+    position:"absolute",
+    bottom:0,
   },
   wording: {
     flexDirection: "row",
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
     height:30,
   },
   textHeading:{
-    color:COLORS.secondary,
+    color:COLORS.tertiary,
     fontSize:SIZES.medium,
     alignSelf:"center",
     marginVertical:20,
@@ -184,8 +189,8 @@ const styles = StyleSheet.create({
     // zIndex: 1, 
   },
   stars:{
-    width: 13,
-    height:13,
+    width: 12,
+    height:12,
   },
   moneyDiv:{
     flex: 1,
@@ -257,6 +262,7 @@ gap:10,
   appointmentDateHeading:{
    fontSize:SIZES.midLarge,
    color: COLORS.primary,
+   marginVertical: 30,
    alignSelf:"center",
   },
   category:{
@@ -264,6 +270,7 @@ gap:10,
   color: COLORS.secondary,
   fontSize:SIZES.medium,
   paddingVertical:20,
+  fontFamily:"Poppins",
   marginLeft:20,
   },
   bookAppointmentContainer:{
@@ -273,6 +280,11 @@ gap:10,
     width:70,
     height:80,
     resizeMode:"contain",
+  },
+  
+  modeContainer:{
+    alignItems:"center",
+    justifyContent: 'center', 
   },
   dateContainer:{
     alignItems: 'center',
@@ -289,7 +301,8 @@ gap:10,
   },
   dateText:{
     fontSize:SIZES.medium,
-    color:COLORS.secondary
+    color:COLORS.secondary,
+  
   },
   dateList:{
     flexDirection: 'row',
@@ -298,18 +311,24 @@ gap:10,
   modeOfTherapy:{
     width: 30,
     height: 30,
-    resizeMode:"contain"
+    resizeMode:"cover"
+  },
+  modes:{
+    width:100,
+    height:50,
+    resizeMode:"cover",
   },
   containermodeOfTherapy:{
-    flex: 1,
+    width:"90%",
     flexDirection:"row",
-    gap:20,
-    justifyContent: 'center',
+    justifyContent:"space-between",
+    margin:"auto"
   },
   bookAppButton:{
     resizeMode:"contain",
     alignSelf: 'center',
-    marginVertical:20,
+    marginTop:30,
+    marginBottom:20,
   }
 });
 export default styles;

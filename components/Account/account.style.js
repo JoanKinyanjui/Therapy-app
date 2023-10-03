@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
       container:{
      width:"100%",
      height:"screenHeight",
+     fontFamily:"Helvetica",
     },
     backgroundImage: {
         height:"maxHeight",

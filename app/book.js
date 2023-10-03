@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView } from 'react-native'
 import { BookAppointment } from '../components'
 import { View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
+import Background from '../components/Background'
 
 function Book() {
   return (
@@ -15,10 +16,10 @@ function Book() {
     />
 
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View>
+    <Background>
           <BookAppointment />
           <BottomNav />
-    </View>
+    </Background>
     </ScrollView>
        
     </SafeAreaView>

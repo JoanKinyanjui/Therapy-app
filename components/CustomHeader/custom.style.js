@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import {COLORS,FONTS,SIZES} from '../../constants';
 
 const styles = StyleSheet.create({
     header: {
@@ -13,7 +14,16 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 18,
       fontWeight: 'medium',
+      fontFamily: 'Poppins',
     },
-  });
+    accountStyle:{
+      width:55,
+      height: 55,
+      borderWidth:3,
+      borderColor:COLORS.primary,
+      resizeMode: "cover",
+      borderRadius:"100%"
+    }
+    });
 
   export default styles;

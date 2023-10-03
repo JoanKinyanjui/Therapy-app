@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
      width:"100%",
      height:"screenHeight",
      backgroundColor:"white",
+     fontFamily:"Helvetica",
     },
     image:{
     width:"100%",
@@ -17,14 +18,14 @@ const styles = StyleSheet.create({
     heading:{
         fontSize:SIZES.large,
         color:COLORS.primary,
-        fontFamily:FONTS.primary,
+        fontFamily:"Helvetica",
         textAlign:"center",
         marginBottom:10,
         marginTop: 20,
         fontWeight: "600",
     },
     subHeading:{
-        fontFamily:FONTS.primary,
+        fontFamily:"Helvetica",
         fontSize:SIZES.small,
         color:COLORS.tertiary,
         textAlign:"center",
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     paddingTop:10,
    },
    alternativeAuthText:{
-    fontFamily:FONTS.primary,
+    fontFamily:"Helvetica",
     color:COLORS.primary,
     fontWeight:600,
     marginLeft:10,

@@ -19,14 +19,14 @@ function Messages() {
       name:"Irene Muthoni",
       message:"",
       link: "",
-      image: "https://images.pexels.com/photos/18466844/pexels-photo-18466844/free-photo-of-fashion-sunglasses-people-woman.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+      image: "https://images.pexels.com/photos/718978/pexels-photo-718978.jpeg?auto=compress&cs=tinysrgb&w=1600",
     },
     {
       key: "3",
       name:"Emmanuel Macharia",
       message:"",
       link: "",
-      image: "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      image: "https://images.pexels.com/photos/235462/pexels-photo-235462.jpeg?auto=compress&cs=tinysrgb&w=1600",
     },
   ]
   return (
@@ -39,7 +39,7 @@ function Messages() {
             renderItem={({ item }) => (
               <View style={styles.rectangleDiv}>
                <View style={styles.itemOne}>
-                <Image style={styles.ProfileImage} source={{uri:"https://images.pexels.com/photos/2625122/pexels-photo-2625122.jpeg?auto=compress&cs=tinysrgb&w=1600"}}/>
+                <Image style={styles.ProfileImage} source={{uri:item.image}}/>
                </View>
                <View style={styles.itemTwo}>
                 <View><Text style={styles.name}>{item.name}</Text></View>

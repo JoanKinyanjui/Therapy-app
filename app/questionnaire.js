@@ -1,11 +1,11 @@
-import { Stack } from 'expo-router'
 import React from 'react'
 import { SafeAreaView, ScrollView, View } from 'react-native'
-import { Match } from '../components'
+import { Home, Questionnaire } from '../components'
+import { Stack } from 'expo-router'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
 
-function match() {
+function questinnaire() {
   return (
     <SafeAreaView>
 
@@ -13,15 +13,16 @@ function match() {
     options={{headerShown:false}}
     headerTitle=''
     />
+
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Background>
-          <Match />
+  <Background>
+          <Questionnaire />
           <BottomNav />
-   </Background>
+    </Background>
     </ScrollView>
        
     </SafeAreaView>
   )
 }
 
-export default match
+export default questinnaire;

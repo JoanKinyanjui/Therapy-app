@@ -4,6 +4,7 @@ import BottomNav from '../components/BottomNavigation/BottomNav'
 import { SafeAreaView } from 'react-native'
 import { Stack } from 'expo-router'
 import { Schedule } from '../components'
+import Background from '../components/Background'
 
 function schedule() {
   return (
@@ -15,10 +16,11 @@ function schedule() {
     />
 
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View>
-          <Schedule />
+<Background>
+         <Schedule />
           <BottomNav />
-    </View>
+</Background>
+        
     </ScrollView>
        
     </SafeAreaView>
