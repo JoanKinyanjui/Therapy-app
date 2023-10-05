@@ -4,24 +4,25 @@ import { Home, Questionnaire } from '../components'
 import { Stack } from 'expo-router'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
+import CustomHeader from '../components/CustomHeader/CustomHeader'
 
 function questinnaire() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+    <Stack.Screen options={{ headerShown: false }} />
 
-    <Stack.Screen
-    options={{headerShown:false}}
-    headerTitle=''
-    />
-
-    <ScrollView showsVerticalScrollIndicator={false}>
-  <Background>
-          <Questionnaire />
-          <BottomNav />
-    </Background>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 70 }}
+      style={{ flex: 1 }}
+    >
+      <Background>
+        <Questionnaire />
+      </Background>
     </ScrollView>
-       
-    </SafeAreaView>
+    <CustomHeader title="Individual Therapy" showBackButton/>
+    <BottomNav />
+  </SafeAreaView>
   )
 }
 

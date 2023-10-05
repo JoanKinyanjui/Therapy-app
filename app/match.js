@@ -4,22 +4,24 @@ import { SafeAreaView, ScrollView, View } from 'react-native'
 import { Match } from '../components'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
+import CustomHeader from '../components/CustomHeader/CustomHeader'
 
 function match() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Stack.Screen options={{ headerShown: false }} />
 
-    <Stack.Screen
-    options={{headerShown:false}}
-    headerTitle=''
-    />
-    <ScrollView showsVerticalScrollIndicator={false}>
-    <Background>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 70 }}
+        style={{ flex: 1 }}
+      >
+        <Background>
           <Match />
-          <BottomNav />
-   </Background>
-    </ScrollView>
-       
+        </Background>
+      </ScrollView>
+      <CustomHeader title="Match" showBackButton/>
+      <BottomNav />
     </SafeAreaView>
   )
 }

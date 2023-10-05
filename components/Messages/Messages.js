@@ -31,7 +31,6 @@ function Messages() {
   ]
   return (
     <View style={styles.container}>
-    <CustomHeader title="Messages"  showBackButton />
         <View style={styles.favouritescontainer}>
         <FlatList
             data={favourites}

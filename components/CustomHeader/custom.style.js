@@ -3,13 +3,21 @@ import {COLORS,FONTS,SIZES} from '../../constants';
 
 const styles = StyleSheet.create({
     header: {
+      position: 'absolute',
+      top: 0,
+      height: 80,
+      width: "100%",
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 16,
+      paddingTop:5,
+      paddingBottomL:5,
       height: 60,
-      backgroundColor: 'transparent',
-      marginVertical:20
+      paddingHorizontal:30,
+      backgroundColor:"white",
+      // borderWidth:1,
+      // borderColor: "#7CB7FD",
     },
     title: {
       fontSize: 18,

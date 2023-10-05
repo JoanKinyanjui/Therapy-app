@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
      width:"100%",
      height:"screenHeight",
      fontFamily:"Helvetica",
+     marginTop:85,
     },
     favouritescontainer:{
         height:"screenHeight",
@@ -32,7 +33,13 @@ const styles = StyleSheet.create({
         flexDirection:"column",
     },
     itemThree:{
-        flex:1,
+        // flex:1,
+        backgroundColor:"white",
+        width:20,
+        justifyContent: "center",
+        borderRadius:"100%",
+        height:20,
+
     },
     ProfileImage:{
         width: 50,
@@ -41,10 +48,23 @@ const styles = StyleSheet.create({
         boxShadow:"none"
     },
     RemoveIcon:{
-        width: 26,
-        height:3,
-        backgroundColor:"#7CB7FD"
-    }
+        width: 10,
+        height:2,
+        backgroundColor:"black",
+        alignSelf:"center",
+    },
+    starsDiv:{
+        flex:1,
+        flexDirection:"row",
+        justifyContent:"flex-start",
+        gap:5,
+          },
+          starsInAppointment:{
+            width:14,
+            height:14,
+            marginVertical:10,
+            paddingHorizontal:2,
+          },
 });
 
 export default styles;

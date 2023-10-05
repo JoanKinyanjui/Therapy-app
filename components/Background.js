@@ -3,9 +3,9 @@ import { View, ImageBackground, StyleSheet } from 'react-native';
 
 const Background = ({ children }) => {
   return (
-  <View style={{backgroundColor:"white"}}>
+  <View style={{backgroundColor:""}}>
       <ImageBackground
-      source={require('../assets/images/background2.png')}
+      // source={require('../assets/images/background2.png')}
       style={styles.background}
     >
       {children}
@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
   background: {
     height:"max-height",
     flex: 1,
-    resizeMode: 'cover', // You can adjust the image resize mode as needed
-    justifyContent: 'center', // Center content vertically
+    resizeMode: 'cover',
+    // backgroundColor:"white",
+    justifyContent: 'center', 
   },
 });
 

@@ -5,24 +5,24 @@ import { SafeAreaView } from 'react-native'
 import { Stack } from 'expo-router'
 import { Schedule } from '../components'
 import Background from '../components/Background'
+import CustomHeader from '../components/CustomHeader/CustomHeader'
 
 function schedule() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Stack.Screen options={{ headerShown: false }} />
 
-    <Stack.Screen
-    options={{headerShown:false}}
-    headerTitle=''
-    />
-
-    <ScrollView showsVerticalScrollIndicator={false}>
-<Background>
-         <Schedule />
-          <BottomNav />
-</Background>
-        
-    </ScrollView>
-       
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 70 }}
+        style={{ flex: 1 }}
+      >
+        <Background>
+          <Schedule />
+        </Background>
+      </ScrollView>
+      <CustomHeader title="Schedule" showBackButton/>
+      <BottomNav />
     </SafeAreaView>
   )
 }

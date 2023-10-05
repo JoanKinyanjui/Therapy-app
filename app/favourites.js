@@ -4,19 +4,26 @@ import BottomNav from '../components/BottomNavigation/BottomNav'
 import { Stack } from 'expo-router'
 import { Favourites } from '../components'
 import Background from '../components/Background'
+import CustomHeader from '../components/CustomHeader/CustomHeader'
 
 
 function favourites() {
   return (
-    <SafeAreaView>
-      <Stack.Screen options={{headerShown:false} }  headerTitle=''/>
-      <ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
+    <Stack.Screen options={{ headerShown: false }} />
+
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 70 }}
+      style={{ flex: 1 }}
+    >
       <Background>
-          <Favourites />
-          <BottomNav />
+        <Favourites />
       </Background>
-      </ScrollView>
-    </SafeAreaView>
+    </ScrollView>
+    <CustomHeader title="Favourites" showBackButton/>
+    <BottomNav />
+  </SafeAreaView>
   )
 }
 

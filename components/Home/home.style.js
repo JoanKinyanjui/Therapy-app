@@ -5,13 +5,18 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "screenHeight",
-    position: "relative",
-    fontFamily:"Helvetica",
+    fontFamily: "Helvetica",
+    marginTop: 60,
+    paddingHorizontal:10,
+  },
+  containerOne: {
+    fontFamily: "Helvetica",
   },
   topContainer: {
     width: "90%",
     alignSelf: "center",
     textAlign: "center",
+    paddingTop:20,
   },
   paraOne: {
     fontSize: 15,
@@ -56,14 +61,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   gridItem: {
-    width:250,
+    width: 250,
     flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 10,
     paddingLeft: 10,
     paddingHorizontal: 8,
-    position:"absolute",
-    bottom:0,
+    position: "absolute",
+    bottom: 0,
   },
   wording: {
     flexDirection: "row",
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   inputContainer: {
-    flex:3,
+    flex: 3,
     flexDirection: "row",
     height: 37,
     alignItems: "center",
@@ -112,10 +117,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   searchIcon: {
-      width: 20,
-      height: 20,
-      marginRight: 5,
-      marginLeft: 10,
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    marginLeft: 10,
   },
   filterBackground: {
     backgroundColor: "rgba(100, 99, 99, 0.29)",
@@ -125,210 +130,270 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     alignSelf: "center",
-    width:40,
-    height:30,
+    width: 40,
+    height: 30,
   },
-  textHeading:{
-    color:COLORS.tertiary,
-    fontSize:SIZES.medium,
-    alignSelf:"center",
-    marginVertical:20,
+  textHeading: {
+    color: COLORS.tertiary,
+    fontSize: SIZES.medium,
+    alignSelf: "center",
+    marginVertical: 20,
   },
   card: {
     margin: 10,
     width: "45%",
-    height:250,
+    height: 250,
     borderRadius: 5,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginVertical: 10,
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   gradient: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     padding: 10,
-    flexDirection: 'row', 
+    flexDirection: "row",
   },
   content: {
-    width: '100%',
-    paddingHorizontal:4,
-    position:"absolute",
-    bottom:3,
-    left:0,
+    width: "100%",
+    paddingHorizontal: 4,
+    position: "absolute",
+    bottom: 3,
+    left: 0,
   },
   name: {
     fontSize: SIZES.xSmall,
     fontWeight: 500,
-    color: 'white',
+    color: "white",
   },
   rating: {
     flex: 2,
-    flexDirection:"row",
+    flexDirection: "row",
     // backgroundColor:"green",
     alignItems: "center",
-    paddingTop:5,
-    alignItems:"center",
-    gap:4,
+    paddingTop: 5,
+    alignItems: "center",
+    gap: 4,
   },
   specializations: {
     fontSize: 9,
     color: COLORS.tertiary,
-    fontStyle:"italic",
+    fontStyle: "italic",
     marginTop: 5,
     fontWeight: 100,
   },
   likeIconContainer: {
     position: "absolute",
-    top: 0, 
-    right: 0, 
-    borderRadius: 50, 
+    top: 0,
+    right: 0,
+    borderRadius: 50,
     padding: 5,
-    // zIndex: 1, 
+    // zIndex: 1,
   },
-  stars:{
+  stars: {
     width: 12,
-    height:12,
+    height: 12,
   },
-  moneyDiv:{
+  moneyDiv: {
     flex: 1,
-    flexDirection:"row",
+    flexDirection: "row",
     justifyContent: "space-between",
     // alignItems:"center",
     // alignContent:"center",
   },
-  moneyText:{
+  moneyText: {
     fontSize: 9,
     color: COLORS.primary,
-    paddingHorizontal:4,
-    flex:1,
+    paddingHorizontal: 4,
+    flex: 1,
     fontWeight: 500,
-    backgroundColor:"rgba(100, 99, 99, 0.4);",
+    backgroundColor: "rgba(100, 99, 99, 0.4);",
     justifyContent: "center",
-    alignContent:"center",
-    alignItems:"center",
-    height:20,
-    borderRadius:50,
-    marginHorizontal:5,
+    alignContent: "center",
+    alignItems: "center",
+    height: 20,
+    borderRadius: 50,
+    marginHorizontal: 5,
   },
-  gridContainer:{
-    flex:1,
+  gridContainer: {
+    flex: 1,
     justifyContent: "space-between",
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
   },
 
+  // Book an Appointment
 
-  // Book an Appointment 
-
-  therapistProfile:{
-  width:120,
-  height:120,
-  borderRadius:"100%",
-  alignSelf:"center",
+  therapistProfile: {
+    width: 120,
+    height: 120,
+    borderRadius: "100%",
+    alignSelf: "center",
   },
-  starsDiv:{
-flex:1,
-flexDirection:"row",
-justifyContent:"center",
-gap:10,
-  },
-  starsInAppointment:{
-    width:22,
-    height:22,
-  },
-  topTHerapistProfile:{
-    paddingHorizontal:30,
-    flex:1,
-    flexDirection:"column",
+  starsDiv: {
+    flex: 1,
+    flexDirection: "row",
     justifyContent: "center",
-    gap:10,
-    borderBottomWidth:1,
-    borderBottomColor: COLORS.tertiary,
-    paddingBottom:20,
+    gap: 10,
   },
-  profileparagraph:{
-    fontSize:SIZES.small,
+  starsInAppointment: {
+    width: 22,
+    height: 22,
+  },
+  topTHerapistProfile: {
+    paddingHorizontal: 30,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: 10,
+    paddingBottom: 20,
+    borderBottomLeftRadius: 40,
+    backgroundColor: "white",
+    borderBottomRightRadius: 40,
+  },
+  profileparagraph: {
+    fontSize: SIZES.small,
     fontWeight: 100,
     color: COLORS.uni,
     textAlign: "center",
   },
-  therapistName:{
-   fontWeight:500,
-   fontSize:SIZES.small,
-   alignSelf:"center",
+  therapistName: {
+    fontWeight: 500,
+    fontSize: SIZES.small,
+    alignSelf: "center",
   },
-  appointmentDateHeading:{
-   fontSize:SIZES.midLarge,
-   color: COLORS.primary,
-   marginVertical: 30,
-   alignSelf:"center",
+  appointmentDateHeading: {
+    fontSize: SIZES.midLarge,
+    color: COLORS.primary,
+    marginTop: 30,
+    alignSelf: "center",
   },
-  category:{
-  textAlign:"start",
-  color: COLORS.secondary,
-  fontSize:SIZES.medium,
-  paddingVertical:20,
-  fontFamily:"Poppins",
-  marginLeft:20,
+  category: {
+    textAlign: "start",
+    color: COLORS.secondary,
+    fontSize: SIZES.medium,
+    marginTop: 20,
+    fontFamily: "Poppins",
+    marginLeft: 20,
   },
-  bookAppointmentContainer:{
-    // backgroundColor: "blue",
+  bookAppointmentContainer: {
+    marginTop: 10,
   },
-  dates:{
-    width:70,
-    height:80,
-    resizeMode:"contain",
+  dates: {
+    width: 70,
+    height: 80,
+    resizeMode: "contain",
   },
-  
-  modeContainer:{
-    alignItems:"center",
-    justifyContent: 'center', 
+  times: {
+    width: 80,
+    height: 50,
+    resizeMode: "contain",
   },
-  dateContainer:{
-    alignItems: 'center',
-    justifyContent: 'center', 
-    marginHorizontal:10,
+
+  modeContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
-  dateTextContainer:{
-    position: 'absolute', 
-    alignItems: 'center', 
-    justifyContent: 'center',
-    flexDirection:"column", 
-    gap:5,
-   
+  dateContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 10,
   },
-  dateText:{
-    fontSize:SIZES.medium,
-    color:COLORS.secondary,
-  
+  dateTextContainer: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    gap: 5,
   },
-  dateList:{
-    flexDirection: 'row',
-    overflowX: 'scroll',
+  dateText: {
+    fontSize: SIZES.medium,
+    color: COLORS.secondary,
   },
-  modeOfTherapy:{
+  dateList: {
+    flexDirection: "row",
+    overflowX: "scroll",
+    marginTop: 10,
+  },
+  modeOfTherapy: {
     width: 30,
     height: 30,
-    resizeMode:"cover"
+    resizeMode: "cover",
   },
-  modes:{
-    width:100,
-    height:50,
-    resizeMode:"cover",
+  modes: {
+    width: 100,
+    height: 50,
+    resizeMode: "cover",
   },
-  containermodeOfTherapy:{
-    width:"90%",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    margin:"auto"
+  containermodeOfTherapy: {
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "auto",
+    paddingTop: 10,
   },
-  bookAppButton:{
-    resizeMode:"contain",
-    alignSelf: 'center',
-    marginTop:30,
-    marginBottom:20,
-  }
+  bookAppButton: {
+    resizeMode: "contain",
+    alignSelf: "center",
+    marginTop: 30,
+  },
+  selectedDate: {
+    backgroundColor: "#7CB7FD",
+    width: 55,
+    height: 100,
+    borderRadius: 26,
+  },
+  unselectedDate: {
+    backgroundColor: "rgba(220, 220, 220, 0.7)",
+    width: 55,
+    borderRadius: 26,
+    height: 100,
+  },
+  selectedTime: {
+    backgroundColor: "#7CB7FD",
+    width: 80,
+    height: 30,
+    borderRadius: 26,
+  },
+  unselectedTime: {
+    backgroundColor: "rgba(220, 220, 220, 0.7)",
+    width: 80,
+    borderRadius: 26,
+    height: 30,
+  },
+  selectedModes: {
+    backgroundColor: "#7CB7FD",
+    width: 80,
+    height: 40,
+    borderRadius: 10,
+  },
+  unselectedModes: {
+    backgroundColor: "rgba(220, 220, 220, 0.7)",
+    width: 80,
+    borderRadius: 10,
+    height: 40,
+  },
+  button: {
+    width: 240,
+    height: 43,
+    color: "white",
+    alignSelf: "center",
+    marginTop: 50,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: SIZES.medium,
+    alignSelf: "center",
+    alignContent: "center",
+  },
+  buttonContent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,  
+    backgroundColor:"#7CB7FD"
+  },
 });
 export default styles;

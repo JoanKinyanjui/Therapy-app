@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, TouchableOpacity,Image } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import CustomHeader from "../CustomHeader/CustomHeader";
 import styles from "./questionnaire.style";
 
@@ -8,17 +8,21 @@ function Questionnaire() {
     {
       id: 1,
       question: "What is your gender ?",
-      options: [{ option: "Female" }, { option: "Male" },{ option: "Binary" }],
+      options: [{ option: "Female" }, { option: "Male" }, { option: "Binary" },{ option: "I don't know"}, { option: "Prefer not to say" }],
     },
     {
       id: 2,
       question: "Tell us more about you ",
-      options: [{ option: "age(0-18)" }, { option:"age(19-35)" },{ option: "age(36 and above)" }],
+      options: [
+        { option: "age(0-18)" },
+        { option: "age(19-35)" },
+        { option: "age(36 and above)" },
+      ],
     },
     {
       id: 3,
       question: "How would you rate your current physical health?",
-      options: [{ option: "Good" }, { option: "Fair" },{ option: "Poor"}],
+      options: [{ option: "Good" }, { option: "Fair" }, { option: "Poor" }],
     },
     {
       id: 4,
@@ -28,8 +32,20 @@ function Questionnaire() {
     {
       id: 5,
       question: "What led you to consider Therapy Today ?",
-      options: [{ option: "now or never" }, { option: "then" }],
-    }
+      options: [
+        { option: "feeling sad" },
+        { option: "feeling happy" },
+        { option: "feeling overwhelmed" },
+        { option: "feeling lonely" },
+        { option: "feeling anxious" },
+        { option: "feeling stressed" },
+        { option: "you are going through grief" },
+        { option: "feeling happy" },
+         
+      ],
+    },
+    
+  
   ];
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -42,52 +58,49 @@ function Questionnaire() {
   const renderItem = ({ item: questionItem, index: questionIndex }) => (
     <View key={questionIndex} style={styles.questionIndex}>
       <Text style={styles.questionStyle}>{questionItem.question}</Text>
-     
-        <View style={styles.optionArrayContainer}>
-          {questionItem.options.map((choice, choiceIndex) => (
-            <TouchableOpacity
-              key={choiceIndex}
-              onPress={() => handleOptionSelect(questionIndex, choiceIndex)}
+
+      <View style={styles.optionArrayContainer}>
+        {questionItem.options.map((choice, choiceIndex) => (
+          <TouchableOpacity
+            key={choiceIndex}
+            onPress={() => handleOptionSelect(questionIndex, choiceIndex)}
+            style={[
+              {
+                backgroundColor:
+                  selectedOptions[questionIndex] === choiceIndex
+                    ? "black"
+                    : "#E4F5FE",
+                // Text color property
+                color:
+                  selectedOptions[questionIndex] === choiceIndex
+                    ? "white" // Change text color to white when selected
+                    : "black", // Change text color to black when not selected
+              },
+
+              styles.optionContainer,
+            ]}
+          >
+            <Text
               style={[
+                styles.option,
                 {
-                  backgroundColor:
+                  color:
                     selectedOptions[questionIndex] === choiceIndex
-                      ? "black"
-                      : "gainsboro",
-                  color: // Text color property
-                    selectedOptions[questionIndex] === choiceIndex
-                      ? "white" // Change text color to white when selected
-                      : "black", // Change text color to black when not selected
+                      ? "white" // Text color when selected
+                      : "#B4B2B2", // Text color when not selected
                 },
-              
-                styles.optionContainer,
               ]}
             >
-              <Text
-        style={[
-          styles.option,
-          {
-            color:
-              selectedOptions[questionIndex] === choiceIndex
-                ? "white" // Text color when selected
-                : "#B4B2B2", // Text color when not selected
-          },
-        ]}
-      >
-        {choice.option}
-      </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+              {choice.option}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
-   
+    </View>
   );
-  
+
   return (
     <View style={styles.container}>
-      {/* <Background > */}
-      <CustomHeader title="Individiual Therapy" showAccountPic />
-
       <View style={styles.topContainer}>
         <Text style={styles.paraOne}>Help us match you with the </Text>
         <Text style={styles.paraTwo}> Right Therapist</Text>
@@ -96,7 +109,7 @@ function Questionnaire() {
         </Text>
       </View>
 
-      <View style={{marginTop:20}}>
+      <View style={{ marginTop: 20 }}>
         <FlatList
           data={questionsWithChoices}
           keyExtractor={(item, index) => index.toString()}
@@ -105,7 +118,7 @@ function Questionnaire() {
       </View>
 
       <View style={styles.ButtonDiv}>
-        <Image  source={require('../../assets/buttons/proceed.png')}/>
+        <Image source={require("../../assets/buttons/proceed.png")} />
       </View>
     </View>
   );

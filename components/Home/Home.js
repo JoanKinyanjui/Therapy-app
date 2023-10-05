@@ -1,7 +1,6 @@
 import React from "react";
 import { FlatList, Image, ImageBackground, Text, View } from "react-native";
 import styles from "./home.style";
-import CustomHeader from "../CustomHeader/CustomHeader";
 import { LinearGradient } from "expo-linear-gradient";
 
 function Home() {
@@ -38,9 +37,6 @@ function Home() {
 
   return (
     <View style={styles.container}>
-      
-         {/* <Background > */}
-        <CustomHeader title="Home"  showAccountPic />
 
         <View style={styles.topContainer}>
           <Text style={styles.paraOne}>

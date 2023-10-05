@@ -4,6 +4,7 @@ import { Link, useRouter } from 'expo-router';
 import { Image, StyleSheet, View } from 'react-native';
 
 
+
 const BottomNav = () => {
 
     const route = useRouter();
@@ -58,12 +59,12 @@ const BottomNav = () => {
       <Link href="/favourites" routeName="favorites">
       {currentRouteName === 'home' ? (
             <Image
-              source={require('../../assets/icons/rating.png')} 
+              source={require('../../assets/icons/like.png')} 
               style={styles.imageIconActive}
             />
           ) : (
             <Image
-            source={require('../../assets/icons/rating.png')} 
+            source={require('../../assets/icons/like.png')} 
               style={styles.imageIconInactive}
             />
           )}
@@ -84,13 +85,17 @@ const styles = StyleSheet.create({
 
       },
       bottomNav: {
+        position:"absolute",
+        bottom: 0,
+        width:"100%",
+        height: 55,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'white', 
-        borderTopWidth: 1, 
-        borderTopColor: '#B4B2B2', 
-        paddingVertical:8
+        // borderTopWidth: 1, 
+        // borderTopColor: '#B4B2B2', 
+        paddingBottom:2
       },
       navItem: {
         flex: 1,

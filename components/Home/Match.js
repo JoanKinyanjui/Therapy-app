@@ -116,7 +116,6 @@ function Match() {
 
   return (
     <View style={styles.container}>
-      <CustomHeader title="Individual Therapy" showBackButton />
       {/* Search */}
       <View style={styles.serachDiv}>
         <View style={styles.inputContainer}>

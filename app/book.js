@@ -5,24 +5,25 @@ import { BookAppointment } from '../components'
 import { View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
+import CustomHeader from '../components/CustomHeader/CustomHeader'
 
 function Book() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+    <Stack.Screen options={{ headerShown: false }} />
 
-    <Stack.Screen
-    options={{headerShown:false}}
-    headerTitle=''
-    />
-
-    <ScrollView showsVerticalScrollIndicator={false}>
-    <Background>
-          <BookAppointment />
-          <BottomNav />
-    </Background>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 70 }}
+      style={{ flex: 1 }}
+    >
+      <Background>
+        <BookAppointment />
+      </Background>
     </ScrollView>
-       
-    </SafeAreaView>
+    <CustomHeader title="Book Appointment" showBackButton/>
+    <BottomNav />
+  </SafeAreaView>
   )
 }
 

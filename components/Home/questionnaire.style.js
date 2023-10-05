@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     height: "screenHeight",
     position: "relative",
     fontFamily:"Helvetica",
+    marginTop: 85,
   },
   topContainer: {
     width: "90%",
@@ -35,18 +36,19 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   questionIndex:{
-   paddingHorizontal:30,
+   paddingHorizontal:25,
    marginVertical:20,
   },
   questionStyle:{
    fontSize: 15,
-   fontWeight:400,
+   fontWeight:500,
+   marginBottom:3
   },
   optionArrayContainer:{
     flex: 1,
     flexDirection:"row",
     flexWrap:"wrap",
-    justifyContent:"center",
+    justifyContent:"flex-start",
     marginTop:3
 
   },
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   },
   optionContainer:{
     borderRadius:16,
-    marginHorizontal:10,
+    marginRight:10,
     marginVertical: 5,
   
   },
