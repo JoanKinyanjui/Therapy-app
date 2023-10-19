@@ -9,7 +9,7 @@ function Favourites() {
   const favourites = [
     {
       key: "1",
-      name: "Joan KInyanjui",
+      name: "Joan Kinyanjui",
       link: "",
       image:
         "https://images.pexels.com/photos/5996857/pexels-photo-5996857.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
@@ -55,14 +55,14 @@ function Favourites() {
               </View>
               <View style={styles.itemTwo}>
                 <View>
-                  <Text>{item.name}</Text>
+                  <Text style={styles.nameFavourites}>{item.name}</Text>
                 </View>
                 <View style={styles.starsDiv}>
       {Array.from({ length: rating }, (_, index) => (
                   <Image
                     key={index}
                     style={styles.starsInAppointment}
-                    source={require("../../assets/icons/rating.png")}
+                    source={require("../../assets/icons/star.png")}
                   />
                 ))}
       </View>

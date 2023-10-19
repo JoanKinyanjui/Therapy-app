@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
     container:{
      width:"100%",
      height:"screenHeight",
-     backgroundColor:"white",
-     fontFamily:"Helvetica",
+    //  backgroundColor:"white",
+     fontFamily:"System",
     },
     image:{
     width:"100%",
@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     heading:{
         fontSize:SIZES.large,
         color:COLORS.primary,
-        fontFamily:"Helvetica",
+        fontFamily:"System",
         textAlign:"center",
         marginBottom:10,
         marginTop: 20,
-        fontWeight: "600",
+        fontWeight: "bold",
     },
     subHeading:{
-        fontFamily:"Helvetica",
+        fontFamily:"System",
         fontSize:SIZES.small,
         color:COLORS.tertiary,
         textAlign:"center",
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:"center",
     alignItems:"center",
-    paddingBottom: 20,
-    paddingTop:10,
+   
+    paddingTop:15,
    },
    alternativeAuthText:{
-    fontFamily:"Helvetica",
+    fontFamily:"System",
     color:COLORS.primary,
     fontWeight:600,
     marginLeft:10,
@@ -158,6 +158,27 @@ const styles = StyleSheet.create({
          height:30,
          borderRadius: 10,
     },
+    button: {
+        width: 240,
+        height: 43,
+        color: "white",
+        alignSelf: "center",
+        marginTop: 40,
+        marginBottom: 50,
+      },
+      buttonText: {
+        color: "white",
+        fontSize: SIZES.medium,
+        alignSelf: "center",
+        alignContent: "center",
+      },
+      buttonContent: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30,  
+        backgroundColor:"#7CB7FD"
+      },
 });
 
 

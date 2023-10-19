@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
     container:{
      width:"100%",
      height:"screenHeight",
-     fontFamily:"Helvetica",
+     fontFamily:"System",
      marginTop:85,
     },
     favouritescontainer:{
         height:"screenHeight",
     },
     rectangleDiv:{
-        height: 140,
+        height: 70,
         flex:1,
         flexDirection:"row",
         alignSelf:"center",
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "#B4B2B2",
         alignItems:"center",
         marginVertical: 10,
-        paddingBottom: 12,
+        paddingVertical: 10,
     },
     itemOne:{
         flex:2,
@@ -32,25 +32,24 @@ const styles = StyleSheet.create({
         justifyContent: "start",
         flexDirection:"column",
     },
+    nameFavourites:{
+        color:COLORS.uni,
+    },
     itemThree:{
-        // flex:1,
-        backgroundColor:"white",
         width:20,
         justifyContent: "center",
-        borderRadius:"100%",
         height:20,
 
     },
     ProfileImage:{
         width: 50,
-        height: 58,
-        borderRadius:"100%",
-        boxShadow:"none"
+        height: 50,
+        borderRadius: 50,
     },
     RemoveIcon:{
         width: 10,
-        height:2,
-        backgroundColor:"black",
+        height:3,
+        backgroundColor:"gray",
         alignSelf:"center",
     },
     starsDiv:{

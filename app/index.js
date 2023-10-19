@@ -1,38 +1,33 @@
-import {View,Text,ScrollView,SafeAreaView} from 'react-native';
-import { useState } from 'react';
-import { Stack,useRouter } from 'expo-router';
-import {COLORS,images,icons} from '../constants';
-import {Account,Login,SignUp,Favourites,Home,Questionnaire,Match,Messages,Schedule,Subscriptions} from '../components'
-import { useFonts } from 'expo-font';
-import BottomNav from '../components/BottomNavigation/BottomNav';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SignUp from './signUp';
+import HomePage from './home';
+import { useEffect, useState } from 'react';
+import { Text } from 'react-native';
+// import { Stack } from 'expo-router';
 
-
-const IndexPage =()=>{
-    const router = useRouter();
-
-    return(
-       <SafeAreaView>
-      
-           <Stack.Screen
-           options={{headerShown:false}}
-           headerTitle=''
-           />
-           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{flex:1}} >
-                <Login />
-                {/* <Home /> */}
-                <BottomNav />
-                {/* <Questionnaire /> */}
-                {/* <Match /> */}
-                {/* <Messages /> */}
-                {/* <Favourites /> */}
-                {/* <Schedule /> */}
-                {/* <Subscriptions /> */}
-            </View>
-           </ScrollView>
-       
-       </SafeAreaView>
-    )
+function LoadingPage() {
+  return (<Text>Loading...</Text> )
 }
 
-export default IndexPage;
+
+export default function IndexPage() {
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      setTimeout(() => {
+          setLoading(false);
+      }, 2000); 
+  }, []);
+
+  if (loading) {
+      return <LoadingPage />;
+  } else if (token) {
+      return <HomePage />;
+  } else {
+      return <SignUp />;
+  }
+
+}
+

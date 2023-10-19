@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import React, { useState } from "react";
+import {SafeAreaView, ScrollView, View } from "react-native";
 import { Home } from "../components";
 import { Stack } from "expo-router";
 import BottomNav from "../components/BottomNavigation/BottomNav";
@@ -8,7 +8,8 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 
 function HomePage() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+  
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
 
       <ScrollView
@@ -17,12 +18,13 @@ function HomePage() {
         style={{ flex: 1 }}
       >
         <Background>
-          <Home />
+          <Home  />
         </Background>
       </ScrollView>
       <CustomHeader title="Home" showAccountPic />
       <BottomNav />
-    </SafeAreaView>
+    </View>
+ 
   );
 }
 

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "screenHeight",
-    fontFamily: "Helvetica",
+    fontFamily: "System",
     marginTop: 85,
   },
   TabPanelDiv: {
@@ -79,10 +79,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   ProfileImage: {
-    width: 50,
-    height: 58,
-    borderRadius: "100%",
-    boxShadow: "none",
+    width: 55,
+    height: 55,
+    borderRadius:55
   },
   partTwoDiv: {
     flex: 1,

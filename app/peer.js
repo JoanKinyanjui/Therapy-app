@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
-import { SignUp } from "../components";
 import { Stack } from "expo-router";
+import React from "react";
+import { SafeAreaView, ScrollView, Text } from "react-native";
+import CustomHeader from "../components/CustomHeader/CustomHeader";
 import Background from "../components/Background";
+import BottomNav from "../components/BottomNavigation/BottomNav";
+import PeerGroup from "../components/Peer/PeerGroups";
 
-function signUp() {
+function peer() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -15,11 +17,13 @@ function signUp() {
         style={{ flex: 1 }}
       >
         <Background>
-          <SignUp />
+          <PeerGroup />
         </Background>
       </ScrollView>
+      <CustomHeader title="Home" showAccountPic />
+      <BottomNav />
     </SafeAreaView>
   );
 }
 
-export default signUp;
+export default peer;

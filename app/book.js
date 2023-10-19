@@ -6,9 +6,13 @@ import { View } from 'react-native'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
 import CustomHeader from '../components/CustomHeader/CustomHeader'
+import { useRoute } from '@react-navigation/native'
 
 function Book() {
-  return (
+  const route = useRoute();
+  const {therapist} = route.params;
+  console.log(therapist);
+    return (
     <SafeAreaView style={{ flex: 1 }}>
     <Stack.Screen options={{ headerShown: false }} />
 
@@ -18,7 +22,7 @@ function Book() {
       style={{ flex: 1 }}
     >
       <Background>
-        <BookAppointment />
+        <BookAppointment therapist={therapist} />
       </Background>
     </ScrollView>
     <CustomHeader title="Book Appointment" showBackButton/>

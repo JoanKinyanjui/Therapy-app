@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, ScrollView, View } from 'react-native'
 import { Home, Questionnaire } from '../components'
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import BottomNav from '../components/BottomNavigation/BottomNav'
 import Background from '../components/Background'
 import CustomHeader from '../components/CustomHeader/CustomHeader'
+import { useRoute } from '@react-navigation/native'
 
-function questinnaire() {
+function questionnaire() {
+  const route = useRoute();
+  const { therapyId } = route.params;
+  const [therapy, setTherapy] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const fetchTherapy = async () => {
+    try {
+        const response = await fetch(`http://localhost:5000/api/clients/therapy/${therapyId}`);
+        const therapyData = await response.json();
+        setTherapy(therapyData);
+        console.log(therapyData);
+        
+       
+    } catch (error) {
+        console.error("Failed to fetch therapy:", error);
+    } finally {
+        setLoading(false);
+    }
+};
+
+
+  useEffect(() => {
+    fetchTherapy();
+}, [therapyId]);
+
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
     <Stack.Screen options={{ headerShown: false }} />
@@ -17,13 +44,13 @@ function questinnaire() {
       style={{ flex: 1 }}
     >
       <Background>
-        <Questionnaire />
+        <Questionnaire data={therapy} />
       </Background>
     </ScrollView>
-    <CustomHeader title="Individual Therapy" showBackButton/>
+  {therapy &&  <CustomHeader title={therapy.title}   showBackButton/> }
     <BottomNav />
   </SafeAreaView>
   )
 }
 
-export default questinnaire;
+export default questionnaire;

@@ -6,9 +6,16 @@ import { Text } from "react-native";
 import { Image } from "react-native";
 import { FlatList } from "react-native";
 import LinearGradientBackground from "../LinearGradientBackground";
-// import LinearGradientBackground from '../LinearGradientBackground';
+import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
-function BookAppointment() {
+function BookAppointment({ therapist }) {
+  //Navigate ...
+  const navigation = useNavigation();
+  const handleNavigateToMatch = () => {
+    navigation.navigate("schedule");
+  };
+  console.log(therapist);
   const rating = 3;
   const hoursIn24HrClock = [
     "00:00",
@@ -166,16 +173,20 @@ function BookAppointment() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerBook}>
       <View style={styles.topTHerapistProfile}>
         <Image
           style={styles.therapistProfile}
           source={{
-            uri:
-              "https://images.pexels.com/photos/819530/pexels-photo-819530.jpeg?auto=compress&cs=tinysrgb&w=1600",
+            uri: therapist.imageUrl,
           }}
         />
-        <Text style={styles.therapistName}>Dr. Samuel Kinyanjui</Text>
+        <View>
+          <Text style={styles.therapistName}>{therapist.name}</Text>
+          <View style={styles.moneyTextBook}>
+            <Text style={styles.moneyTextSpecBook}>{therapist.price}</Text>
+          </View>
+        </View>
         <View style={styles.starsDiv}>
           {Array.from({ length: rating }, (_, index) => (
             <Image
@@ -189,6 +200,9 @@ function BookAppointment() {
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of.
+        </Text>
+        <Text style={styles.specializationDiv}>
+          {therapist.specializations}
         </Text>
       </View>
 
@@ -240,13 +254,11 @@ function BookAppointment() {
         </View>
       </View>
 
-      <View>
-        <TouchableOpacity style={styles.button}>
-          {/* <LinearGradientBackground> */}
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>Book Appointment</Text>
-            </View>
-          {/* </LinearGradientBackground> */}
+      <View style={{ alignSelf: "center", flex: 1, width: "100%" }}>
+        <TouchableOpacity style={styles.button} onPress={handleNavigateToMatch}>
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>Book Appointment</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>

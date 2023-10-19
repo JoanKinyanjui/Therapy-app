@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "screenHeight",
     position: "relative",
-    fontFamily:"Helvetica",
+    fontFamily:"System",
     marginTop: 85,
   },
   topContainer: {
@@ -16,21 +16,21 @@ const styles = StyleSheet.create({
   },
   paraOne: {
     fontSize: 15,
-    fontWeight: 500,
     color: COLORS.secondary,
     alignSelf: "center",
     marginVertical: 5,
   },
   paraTwo: {
-    fontSize: 16,
-    fontWeight: 700,
+    fontSize: 17,
+   fontFamily:"System",
+   fontWeight:"bold",
     color: COLORS.primary,
     alignSelf: "center",
     marginVertical: 5,
   },
   paraThree: {
     fontSize: SIZES.small,
-    fontWeight: 400,
+    // fontWeight: 400,
     color: COLORS.tertiary,
     alignSelf: "center",
     marginVertical: 5,
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
    marginVertical:20,
   },
   questionStyle:{
-   fontSize: 15,
-   fontWeight:500,
+   fontSize: 16,
+  //  fontWeight:500,
    marginBottom:3
   },
   optionArrayContainer:{
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
   },
   option:{
-    fontSize:14,
+    fontSize:SIZES.medium,
     paddingHorizontal:30,
     color:COLORS.tertiary,
     paddingVertical:5,
@@ -64,12 +64,26 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   
   },
-  ButtonDiv:{
-    flex:1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical:10
-  }
+  button: {
+    width: 240,
+    height: 43,
+    color: "white",
+    alignSelf: "center",
+    marginTop: 30,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: SIZES.medium,
+    alignSelf: "center",
+    alignContent: "center",
+  },
+  buttonContent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,  
+    backgroundColor:"#7CB7FD"
+  },
  
 })
 

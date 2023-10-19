@@ -4,15 +4,15 @@ import {COLORS,FONTS,SIZES} from '../../constants';
 const styles = StyleSheet.create({
       container:{
      width:"100%",
-     fontFamily:"Helvetica",
-     marginTop:85,
+     fontFamily:"System",
+     marginTop:60 ,
      flex:1,
     },
     favouritescontainer:{
         height:"screenHeight",
     },
     rectangleDiv:{
-        height: 140,
+        height: 70,
         flex:1,
         flexDirection:"row",
         alignSelf:"center",
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "#B4B2B2",
         alignItems:"flex-end",
         marginVertical: 10,
-        paddingBottom: 12,
+        paddingVertical:10,
     },
     itemOne:{
         flex:2,
@@ -38,9 +38,8 @@ const styles = StyleSheet.create({
     },
     ProfileImage:{
         width: 45,
-        height: 53,
-        borderRadius:"100%",
-        boxShadow:"none",
+        height: 50,
+        borderRadius:50,
         alignSelf:"center",
         
     },

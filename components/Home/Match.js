@@ -12,6 +12,8 @@ import CustomHeader from "../CustomHeader/CustomHeader";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { FlatList } from "react-native";
+import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 function Match() {
   const [likedTherapists, setLikedTherapists] = useState({});
@@ -23,65 +25,87 @@ function Match() {
   };
 
 
+
   const data = [
     {
       id: "1",
       name: "Dr. Stanley Karanja",
       imageUrl:
         "https://images.pexels.com/photos/7533347/pexels-photo-7533347.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 2, 
+      rating: 2,
       price: "KES 500",
-      specializations: "anxiety, depression, ...",
+      specializations:  "anxiety,relationships,stress management,marriage,self-esteem",
     },
     {
       id: "2",
       name: "Dr. Irene Muthoni",
       imageUrl:
         "https://images.pexels.com/photos/12495575/pexels-photo-12495575.png?auto=compress&cs=tinysrgb&w=1600",
-      rating: 4, 
+      rating: 4,
       price: "KES 700",
-      specializations: "anxiety, relationships, ...",
+      specializations:  "anxiety,relationships,stress management,marriage,self-esteem",
     },
     {
       id: "3",
       name: "Dr. Stanley Karanja",
       imageUrl:
         "https://images.pexels.com/photos/1674666/pexels-photo-1674666.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 3, 
+      rating: 3,
       price: "KES 1000",
-      specializations: "anxiety, marriage ...",
+      specializations:
+        "anxiety,relationships,stress management,marriage,self-esteem",
     },
     {
       id: "4",
       name: "Dr. Stanley Karanja",
       imageUrl:
         "https://images.pexels.com/photos/845457/pexels-photo-845457.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 1, 
+      rating: 1,
       price: "KES 500",
-      specializations: "anxiety, marriage ...",
+      specializations:
+        "anxiety,relationships,stress management,marriage,self-esteem",
     },
     {
       id: "5",
       name: "Dr. Stanley Karanja",
       imageUrl:
         "https://images.pexels.com/photos/762080/pexels-photo-762080.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 5, 
+      rating: 5,
       price: "KES 1200",
-      specializations: "anxiety, marriage ...",
+      specializations:
+        "anxiety,relationships,stress management,marriage,self-esteem",
     },
   ];
 
   const numColumns = 2;
+  const navigation = useNavigation();
+  const handlePress = (item) => {
+    navigation.navigate("book", { therapist: item });
+  };
+
+  function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      const truncatedText = text.substring(0, maxLength);
+      return `${truncatedText}...`;
+    }
+  }
+  
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onLongPress={() => toggleLike(item.id)}>
+    <TouchableOpacity
+      style={styles.card}
+      onLongPress={() => toggleLike(item.id)}
+      onPress={() => handlePress(item)}
+    >
       <ImageBackground
         source={{ uri: item.imageUrl }}
         style={styles.backgroundImage}
       >
         <LinearGradient
           colors={["transparent", "rgba(0, 0, 0, 0.9)"]}
-          style={styles.gradient}
+          style={styles.gradientMatch}
         >
           <View style={styles.content}>
             <Text style={styles.name}>{item.name}</Text>
@@ -96,13 +120,13 @@ function Match() {
                   />
                 ))}
               </View>
-              <View style={styles.moneyText}>{item.price}</View>
+              <View style={styles.moneyText}>
+                <Text style={styles.moneyTextSpec}>{item.price}</Text>
+              </View>
             </View>
-            <Text style={styles.specializations}>
-              {item.specializations}
-            </Text>
+            <Text style={styles.specializations}>{truncateText(item.specializations, 30)}</Text>
           </View>
-          {likedTherapists[item.id] && ( // Check the like status based on therapist's ID
+          {likedTherapists[item.id] && ( 
             <View style={styles.likeIconContainer}>
               <Ionicons name="heart" size={20} color="#7CB7FD" />
             </View>
@@ -111,8 +135,6 @@ function Match() {
       </ImageBackground>
     </TouchableOpacity>
   );
-
-
 
   return (
     <View style={styles.container}>
@@ -138,23 +160,21 @@ function Match() {
       </View>
 
       {/* Text */}
-      <View>
-        <View style={styles.textHeading}>
-          Use filters to get a more accurate match
-        </View>
-      </View>
+
+      <Text style={styles.textHeading}>
+        Use filters to get a more accurate match
+      </Text>
 
       {/* Therapists */}
 
       <View style={styles.gridContainer}>
-      <FlatList
-        data={data}
-        numColumns={numColumns}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-      />
-    </View>
-
+        <FlatList
+          data={data}
+          numColumns={numColumns}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+        />
+      </View>
     </View>
   );
 }

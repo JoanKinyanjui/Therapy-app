@@ -5,36 +5,34 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "screenHeight",
-    fontFamily: "Helvetica",
-    marginTop: 60,
-    paddingHorizontal:10,
+    paddingTop: 60,
   },
   containerOne: {
-    fontFamily: "Helvetica",
+    fontFamily: "System",
   },
   topContainer: {
     width: "90%",
     alignSelf: "center",
     textAlign: "center",
-    paddingTop:20,
+    paddingTop: 20,
   },
   paraOne: {
     fontSize: 15,
-    fontWeight: 500,
     color: COLORS.secondary,
     alignSelf: "center",
     marginVertical: 5,
   },
   paraTwo: {
-    fontSize: 16,
-    fontWeight: 700,
+    fontSize: 17,
+    fontFamily: "System",
+    fontWeight: "bold",
     color: COLORS.primary,
     alignSelf: "center",
     marginVertical: 5,
   },
   paraThree: {
     fontSize: SIZES.small,
-    fontWeight: 400,
+    // fontWeight: 400,
     color: COLORS.tertiary,
     alignSelf: "center",
     marginVertical: 5,
@@ -48,7 +46,9 @@ const styles = StyleSheet.create({
     width: 270,
     height: 130,
     marginBottom: 25,
-    position: "relative",
+    borderRadius: 5,
+    position: "relative !important",
+    overflow: "hidden",
   },
   backgroundImage: {
     flex: 1,
@@ -59,17 +59,19 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
+    justifyContent: "space-between",
+    padding: 10,
+    flexDirection: "row",
   },
   gridItem: {
     width: 250,
+    height: 110,
     flexDirection: "column",
-    justifyContent: "space-between",
-    marginBottom: 10,
-    paddingLeft: 10,
-    paddingHorizontal: 8,
-    position: "absolute",
+    justifyContent: "flex-end",
+    position: "absolute !important",
     bottom: 0,
   },
+
   wording: {
     flexDirection: "row",
     width: "100%",
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   word1: {
     fontSize: SIZES.medium,
     color: "white",
-    fontWeight: 700,
+    // fontWeight: 700,
     paddingBottom: 2,
     textAlign: "left",
   },
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     width: "100%",
     fontSize: SIZES.small,
     color: COLORS.tertiary,
-    fontWeight: 300,
+    // fontWeight: 300,
     alignSelf: "flex-start",
   },
   arrow: {
@@ -98,6 +100,7 @@ const styles = StyleSheet.create({
   serachDiv: {
     paddingHorizontal: 30,
     // flex: 1,
+    paddingTop: 30,
     flexDirection: "row",
   },
   inputContainer: {
@@ -127,6 +130,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 37,
     justifyContent: "center",
+    borderTopRightRadius:3,
+    borderBottomRightRadius:3,
   },
   filterIcon: {
     alignSelf: "center",
@@ -151,10 +156,10 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
   },
-  gradient: {
+  gradientMatch: {
     flex: 1,
     justifyContent: "space-between",
-    padding: 10,
+    // padding: 10,
     flexDirection: "row",
   },
   content: {
@@ -163,16 +168,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 3,
     left: 0,
+    right: 0,
   },
   name: {
     fontSize: SIZES.xSmall,
-    fontWeight: 500,
+    fontFamily: "Helvetica-Bold",
     color: "white",
   },
   rating: {
     flex: 2,
     flexDirection: "row",
-    // backgroundColor:"green",
     alignItems: "center",
     paddingTop: 5,
     alignItems: "center",
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
     color: COLORS.tertiary,
     fontStyle: "italic",
     marginTop: 5,
-    fontWeight: 100,
+    // fontWeight: 100,
   },
   likeIconContainer: {
     position: "absolute",
@@ -201,15 +206,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    // alignItems:"center",
-    // alignContent:"center",
   },
   moneyText: {
-    fontSize: 9,
-    color: COLORS.primary,
-    paddingHorizontal: 4,
     flex: 1,
-    fontWeight: 500,
+    // fontWeight: 500,
+    width: "100%",
     backgroundColor: "rgba(100, 99, 99, 0.4);",
     justifyContent: "center",
     alignContent: "center",
@@ -217,6 +218,11 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 50,
     marginHorizontal: 5,
+  },
+  moneyTextSpec: {
+    fontSize: SIZES.tiny,
+    color: COLORS.primary,
+    paddingHorizontal: 4,
   },
   gridContainer: {
     flex: 1,
@@ -229,7 +235,9 @@ const styles = StyleSheet.create({
   therapistProfile: {
     width: 120,
     height: 120,
-    borderRadius: "100%",
+    borderRadius: 60,
+    borderColor: "gainsboro",
+    borderWidth: 1,
     alignSelf: "center",
   },
   starsDiv: {
@@ -242,10 +250,14 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
   },
+  containerBook: {
+    width: "100%",
+    height: "screenHeight",
+  },
   topTHerapistProfile: {
-    paddingHorizontal: 30,
     flex: 1,
     flexDirection: "column",
+    paddingTop: 60,
     justifyContent: "center",
     gap: 10,
     paddingBottom: 20,
@@ -255,12 +267,19 @@ const styles = StyleSheet.create({
   },
   profileparagraph: {
     fontSize: SIZES.small,
-    fontWeight: 100,
+    // fontWeight: 100,
     color: COLORS.uni,
     textAlign: "center",
+    paddingHorizontal: 30,
+  },
+  specializationDiv: {
+    fontSize: SIZES.small,
+    color: COLORS.tertiary,
+    textAlign: "center",
+    fontStyle:"italic"
   },
   therapistName: {
-    fontWeight: 500,
+    fontFamily: "Helvetica-Bold",
     fontSize: SIZES.small,
     alignSelf: "center",
   },
@@ -271,11 +290,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   category: {
-    textAlign: "start",
+    textAlign: "left",
     color: COLORS.secondary,
     fontSize: SIZES.medium,
     marginTop: 20,
-    fontFamily: "Poppins",
+    // fontFamily: "Poppins",
     marginLeft: 20,
   },
   bookAppointmentContainer: {
@@ -392,8 +411,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 30,  
-    backgroundColor:"#7CB7FD"
+    borderRadius: 30,
+    backgroundColor: "#7CB7FD",
+  },
+  moneyTextBook: {
+    width: "20%",
+    backgroundColor: "rgba(100, 99, 99, 0.1);",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    height: 20,
+    borderRadius: 50,
+    alignSelf:"center",
+    marginTop:8,
+  },
+  moneyTextSpecBook: {
+    fontSize: SIZES.xSmall,
+    color: COLORS.primary,
+    paddingHorizontal: 4,
   },
 });
 export default styles;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 
 
 
@@ -12,6 +12,7 @@ const BottomNav = () => {
     console.log(currentRouteName)
 
   return (
+    // <SafeAreaView  style={{ flex: 0, backgroundColor: 'white' }}>
     <View  style={styles.bottomNav}>
       <Link href="/home" routeName="home">
           {currentRouteName === 'home' ? (
@@ -69,7 +70,22 @@ const BottomNav = () => {
             />
           )}
       </Link>
+
+      <Link href="/peer" routeName="account">
+      {currentRouteName === 'account' ? (
+            <Image
+              source={require('../../assets/icons/peer.png')} 
+              style={styles.imageIconActive}
+            />
+          ) : (
+            <Image
+            source={require('../../assets/icons/peer.png')} 
+              style={styles.imageIconInactive}
+            />
+          )}
+      </Link>
     </View>
+    // </SafeAreaView>
 
   );
 };
@@ -95,13 +111,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         // borderTopWidth: 1, 
         // borderTopColor: '#B4B2B2', 
-        paddingBottom:2
+        // paddingBottom:2
       },
       navItem: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10, 
+        // paddingVertical: 10, 
       },
       imageIconActive:{
         width:32,

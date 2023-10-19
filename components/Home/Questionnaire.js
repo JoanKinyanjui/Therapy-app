@@ -2,51 +2,19 @@ import React, { useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import CustomHeader from "../CustomHeader/CustomHeader";
 import styles from "./questionnaire.style";
+import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
-function Questionnaire() {
-  const questionsWithChoices = [
-    {
-      id: 1,
-      question: "What is your gender ?",
-      options: [{ option: "Female" }, { option: "Male" }, { option: "Binary" },{ option: "I don't know"}, { option: "Prefer not to say" }],
-    },
-    {
-      id: 2,
-      question: "Tell us more about you ",
-      options: [
-        { option: "age(0-18)" },
-        { option: "age(19-35)" },
-        { option: "age(36 and above)" },
-      ],
-    },
-    {
-      id: 3,
-      question: "How would you rate your current physical health?",
-      options: [{ option: "Good" }, { option: "Fair" }, { option: "Poor" }],
-    },
-    {
-      id: 4,
-      question: "Have you been to therapy before ?",
-      options: [{ option: "yes" }, { option: "no" }],
-    },
-    {
-      id: 5,
-      question: "What led you to consider Therapy Today ?",
-      options: [
-        { option: "feeling sad" },
-        { option: "feeling happy" },
-        { option: "feeling overwhelmed" },
-        { option: "feeling lonely" },
-        { option: "feeling anxious" },
-        { option: "feeling stressed" },
-        { option: "you are going through grief" },
-        { option: "feeling happy" },
-         
-      ],
-    },
-    
-  
-  ];
+function Questionnaire({data}) {
+  console.log(data)
+  //Navigate ...
+  const navigation = useNavigation();
+  const handleNavigateToMatch = () => {
+    navigation.navigate("match");
+  };
+
+  const router = useRouter();
+ 
   const [selectedOptions, setSelectedOptions] = useState({});
 
   const handleOptionSelect = (questionIndex, optionIndex) => {
@@ -56,13 +24,13 @@ function Questionnaire() {
     }));
   };
   const renderItem = ({ item: questionItem, index: questionIndex }) => (
-    <View key={questionIndex} style={styles.questionIndex}>
-      <Text style={styles.questionStyle}>{questionItem.question}</Text>
+    <View key={questionItem._id.$oid} style={styles.questionIndex}>
+      <Text style={styles.questionStyle}>{questionItem.questionText}</Text>
 
       <View style={styles.optionArrayContainer}>
         {questionItem.options.map((choice, choiceIndex) => (
           <TouchableOpacity
-            key={choiceIndex}
+            key={choice._id.$oid}
             onPress={() => handleOptionSelect(questionIndex, choiceIndex)}
             style={[
               {
@@ -70,11 +38,11 @@ function Questionnaire() {
                   selectedOptions[questionIndex] === choiceIndex
                     ? "black"
                     : "#E4F5FE",
-                // Text color property
+              
                 color:
                   selectedOptions[questionIndex] === choiceIndex
-                    ? "white" // Change text color to white when selected
-                    : "black", // Change text color to black when not selected
+                    ? "white" 
+                    : "black",
               },
 
               styles.optionContainer,
@@ -86,12 +54,12 @@ function Questionnaire() {
                 {
                   color:
                     selectedOptions[questionIndex] === choiceIndex
-                      ? "white" // Text color when selected
-                      : "#B4B2B2", // Text color when not selected
+                      ? "white" 
+                      : "#B4B2B2", 
                 },
               ]}
             >
-              {choice.option}
+              {choice.text}
             </Text>
           </TouchableOpacity>
         ))}
@@ -109,16 +77,21 @@ function Questionnaire() {
         </Text>
       </View>
 
-      <View style={{ marginTop: 20 }}>
+   {data &&    <View style={{ marginTop: 20 }}>
         <FlatList
-          data={questionsWithChoices}
-          keyExtractor={(item, index) => index.toString()}
+          data={data.questions}
+          keyExtractor={(item) => item._id.$oid}
           renderItem={renderItem}
         />
       </View>
+      }
 
-      <View style={styles.ButtonDiv}>
-        <Image source={require("../../assets/buttons/proceed.png")} />
+      <View style={{ alignSelf: "center"}}>
+        <TouchableOpacity style={styles.button} onPress={handleNavigateToMatch}>
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
