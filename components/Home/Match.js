@@ -16,25 +16,12 @@ import { Link } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 function Match() {
-  const fetchStoredResponses = async () => {
-    try {
-      const storedResponses = await AsyncStorage.getItem("userResponses");
-      if (storedResponses !== null) {
-        console.log(storedResponses);
-        return JSON.parse(storedResponses);
-      }
-    } catch (error) {
-      console.error("Error fetching responses from AsyncStorage:", error);
-    }
-    return null;
-  };
-
   const [therapists, setTherapists] = useState([]);
   async function fetchData() {
     try {
       const response = await fetch('http://localhost:5000/api/therapists/all');
       const data = await response.json();
-      console.log(data, 'more');
+      console.log(data);
       setTherapists(data);
     } catch (error) {
       console.error("There was an error fetching therapists:", error);
@@ -43,7 +30,6 @@ function Match() {
 
   useEffect(() => {
     fetchData();
-    fetchStoredResponses();
   }, []);
 
   const [likedTherapists, setLikedTherapists] = useState({});
@@ -73,7 +59,7 @@ function Match() {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onLongPress={() => toggleLike(item.id)}
+      onLongPress={() => toggleLike(item._id)}
       onPress={() => handlePress(item)}
     >
       <ImageBackground
@@ -105,7 +91,7 @@ function Match() {
               {truncateText(item.specializations, 30)}
             </Text>
           </View>
-          {likedTherapists[item.id] && (
+          {likedTherapists[item._id] && (
             <View style={styles.likeIconContainer}>
               <Ionicons name="heart" size={20} color="#7CB7FD" />
             </View>
@@ -151,7 +137,7 @@ function Match() {
       <FlatList
         data={therapists}
         numColumns={numColumns}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         renderItem={renderItem}
       />
     </View>}

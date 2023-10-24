@@ -22,7 +22,7 @@ function Book() {
       style={{ flex: 1 }}
     >
       <Background>
-        <BookAppointment therapist={therapist} />
+        <BookAppointment therapistId={therapist._id} />
       </Background>
     </ScrollView>
     <CustomHeader title="Book Appointment" showBackButton/>

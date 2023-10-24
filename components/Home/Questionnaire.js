@@ -14,29 +14,20 @@ function Questionnaire({data}) {
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  const handleOptionSelect = (questionIndex, optionIndex) => {
+  const handleOptionSelect = (questionId, optionId) => {
     setSelectedOptions((prevSelectedOptions) => {
-      // If it's the last question, allow multiple selections
-      if (questionIndex === data.questions.length - 1) {
-        const currentSelections = prevSelectedOptions[questionIndex] || [];
-        if (currentSelections.includes(optionIndex)) {
-          // Unselect the option if it's already selected
-          return {
-            ...prevSelectedOptions,
-            [questionIndex]: currentSelections.filter((i) => i !== optionIndex),
-          };
-        } else {
-          // Otherwise, add this option to the selections
-          return {
-            ...prevSelectedOptions,
-            [questionIndex]: [...currentSelections, optionIndex],
-          };
-        }
-      } else {
-        // For other questions, only allow one selection
+      const currentSelections = prevSelectedOptions[questionId] || [];
+      if (currentSelections.includes(optionId)) {
+        // Unselect the option if it's already selected
         return {
           ...prevSelectedOptions,
-          [questionIndex]: [optionIndex],
+          [questionId]: currentSelections.filter((i) => i !== optionId),
+        };
+      } else {
+        // Otherwise, add this option to the selections
+        return {
+          ...prevSelectedOptions,
+          [questionId]: [...currentSelections, optionId],
         };
       }
     });
@@ -45,8 +36,8 @@ function Questionnaire({data}) {
 
   const handleNavigateToMatch = async () => {
     try {
-      const responsesArray = Object.entries(selectedOptions).map(([questionIndex, answerIndex]) => {
-        return { question: questionIndex, answer: answerIndex };
+      const responsesArray = Object.entries(selectedOptions).map(([questionId, answerIds]) => {
+        return { question: questionId, answer: answerIds };
       });
   
       await AsyncStorage.setItem('userResponses', JSON.stringify(responsesArray));
@@ -58,48 +49,42 @@ function Questionnaire({data}) {
   };
 
   const renderItem = ({ item: questionItem, index: questionIndex }) => (
-    <View key={questionItem._id.$oid} style={styles.questionIndex}>
+    <View key={questionItem._id} style={styles.questionIndex}>
       <Text style={styles.questionStyle}>{questionItem.questionText}</Text>
-
+  
       <View style={styles.optionArrayContainer}>
-        {questionItem.options.map((choice, choiceIndex) => (
-          <TouchableOpacity
-            key={choice._id.$oid}
-            onPress={() => handleOptionSelect(questionIndex, choiceIndex)}
-            style={[
-              {
-                backgroundColor:
-                selectedOptions[questionIndex] && selectedOptions[questionIndex].includes(choiceIndex)
-                  ? "black"
-                  : "#E4F5FE",
-              color:
-                selectedOptions[questionIndex] && selectedOptions[questionIndex].includes(choiceIndex)
-                  ? "white" 
-                  : "black",
-              
-              },
-
-              styles.optionContainer,
-            ]}
-          >
-            <Text
+        {questionItem.options.map((choice, choiceIndex) => {
+          const isSelected = selectedOptions[questionItem._id] && selectedOptions[questionItem._id].includes(choice._id);
+  
+          return (
+            <TouchableOpacity
+              key={choice._id}
+              onPress={() => handleOptionSelect(questionItem._id, choice._id)}
               style={[
-                styles.option,
                 {
-                  color:
-                    selectedOptions[questionIndex] === choiceIndex
-                      ? "white" 
-                      : "#B4B2B2", 
+                  backgroundColor: isSelected ? "black" : "#E4F5FE",
+                  color: isSelected ? "white" : "black",
                 },
+                styles.optionContainer,
               ]}
             >
-              {choice.text}
-            </Text>
-          </TouchableOpacity>
-        ))}
+              <Text
+                style={[
+                  styles.option,
+                  {
+                    color: isSelected ? "white" : "#B4B2B2",
+                  },
+                ]}
+              >
+                {choice.text}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );
+  
 
   return (
     <View style={styles.container}>
@@ -114,7 +99,7 @@ function Questionnaire({data}) {
    {data &&    <View style={{ marginTop: 20 }}>
         <FlatList
           data={data.questions}
-          keyExtractor={(item) => item._id.$oid}
+          keyExtractor={(item) => item._id}
           renderItem={renderItem}
         />
       </View>

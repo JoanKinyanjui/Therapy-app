@@ -1,39 +1,53 @@
-import React, { useState } from 'react'
-import { FlatList, Image, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { FlatList, Image, Text, View ,ActivityIndicator} from 'react-native';
 import styles from "./schedule.style";
 import { TouchableOpacity } from 'react-native';
 
 function Schedule() {
   const rating = 3;
-  const data = [
-    {
-      key: "1",
-      name: "Davis Thoya",
-      tagline: "For myself",
-      link: "",
-      image: "https://images.pexels.com/photos/5996857/pexels-photo-5996857.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      key: "2",
-      name: "Stella Mugure",
-      tagline: "For myself",
-      link: "",
-      image: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-    {
-      key: "3",
-      name: "Phoebe Sawe",
-      tagline: "For myself",
-      link: "",
-      image: "https://images.pexels.com/photos/5996857/pexels-photo-5996857.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-  ]
-
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('Tab1');
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName); 
   };
+
+  const upcomingAppointments = appointments ? appointments.filter(appointment => appointment.status === 'upcoming') : [];
+  const pastAppointments = appointments ? appointments.filter(appointment => appointment.status === 'past') : [];
+  
+  const fetchAppointments = async () => {
+    try {
+        const response = await fetch('http://localhost:5000/api/clients/appointments');
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+  
+        const data = await response.json();
+        console.log(data,'aka done'); // Corrected the typo here
+        setAppointments(data);
+        setLoading(false);
+    } catch (err) {
+        setError(err.message);
+        setLoading(false);
+    }
+  };
+  
+
+useEffect(()=>{
+  fetchAppointments();
+},[])
+
+if (loading) {
+  return <ActivityIndicator size="large" color="#0000ff" />;
+}
+
+if (error) {
+  return <Text>Error: {error}</Text>;
+}
+
   return (
     <View style={styles.container}>
         <View style={styles.TabPanelDiv}>
@@ -50,23 +64,28 @@ function Schedule() {
       </View>
 
        {/* Tab Content */}
-       {activeTab === 'Tab1' && (
-       <View style={styles.appointmentCard}>
+       {activeTab === 'Tab1' && upcomingAppointments.length > 0 && (
+       <View>
+       <FlatList
+               data={upcomingAppointments}
+               numColumns={1}
+               renderItem={({ item }) => (
+                 <View style={styles.pastAppointmentCard}>
        <View style={styles.partOneDiv}>
              <View style={styles.itemOne}>
-             <Image style={styles.ProfileImage} source={{uri:"https://images.pexels.com/photos/2625122/pexels-photo-2625122.jpeg?auto=compress&cs=tinysrgb&w=1600"}}/>
+             <Image style={styles.ProfileImage} source={{uri:item.therapist.image}}/>
              </View>
              <View style={styles.itemTwo}>
-              <Text>Irene Muthoni</Text>
+              <Text>{item.therapist.name}</Text>
               <View style={styles.starsDiv}>
-      {Array.from({ length: rating }, (_, index) => (
-                  <Image
-                    key={index}
-                    style={styles.starsInAppointment}
-                    source={require("../../assets/icons/rating.png")}
-                  />
-                ))}
-      </View>
+  {Array.from({ length: item.therapist.rating }, (_, index) => (
+              <Image
+                key={index}
+                style={styles.starsInAppointment}
+                source={require("../../assets/icons/rating.png")}
+              />
+            ))}
+  </View>
                </View>
              <View style={styles.itemThree}>
              <Image
@@ -75,7 +94,7 @@ function Schedule() {
              />
              </View>
        </View>
-       
+   
        <View style={styles.partTwoDiv}>
              <Text style={styles.dateandTime}>Date and Time</Text>
              <View style={styles.partThreeDiv}>
@@ -90,30 +109,36 @@ function Schedule() {
              </View>
        </View>
        </View>
+               )}
+               keyExtractor={(item) => item.key}
+             />
+       </View>
       )}
-      {activeTab === 'Tab2' && (
+
+
+      {activeTab === 'Tab2'  && pastAppointments.length > 0 && (
            <View>
            <FlatList
-                   data={data}
+                   data={pastAppointments}
                    numColumns={1}
                    renderItem={({ item }) => (
                      <View style={styles.pastAppointmentCard}>
            <View style={styles.partOneDiv}>
-                 <View style={styles.itemOne}>
-                 <Image style={styles.ProfileImage} source={{uri:item.image}}/>
-                 </View>
-                 <View style={styles.itemTwo}>
-                  <Text>{item.name}</Text>
-                  <View style={styles.starsDiv}>
-      {Array.from({ length: rating }, (_, index) => (
-                  <Image
-                    key={index}
-                    style={styles.starsInAppointment}
-                    source={require("../../assets/icons/rating.png")}
-                  />
-                ))}
-      </View>
-                   </View>
+           <View style={styles.itemOne}>
+             <Image style={styles.ProfileImage} source={{uri:item.therapist.image}}/>
+             </View>
+             <View style={styles.itemTwo}>
+              <Text>{item.therapist.name}</Text>
+              <View style={styles.starsDiv}>
+  {Array.from({ length: item.therapist.rating }, (_, index) => (
+              <Image
+                key={index}
+                style={styles.starsInAppointment}
+                source={require("../../assets/icons/rating.png")}
+              />
+            ))}
+  </View>
+               </View>
                  <View style={styles.itemThree}>
                  <Image
                  source={require('../../assets/icons/cancelnotification.png')}
