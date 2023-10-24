@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import styles from "./home.style";
-import CustomHeader from "../CustomHeader/CustomHeader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { FlatList } from "react-native";
@@ -16,6 +16,36 @@ import { Link } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 function Match() {
+  const fetchStoredResponses = async () => {
+    try {
+      const storedResponses = await AsyncStorage.getItem("userResponses");
+      if (storedResponses !== null) {
+        console.log(storedResponses);
+        return JSON.parse(storedResponses);
+      }
+    } catch (error) {
+      console.error("Error fetching responses from AsyncStorage:", error);
+    }
+    return null;
+  };
+
+  const [therapists, setTherapists] = useState([]);
+  async function fetchData() {
+    try {
+      const response = await fetch('http://localhost:5000/api/therapists/all');
+      const data = await response.json();
+      console.log(data, 'more');
+      setTherapists(data);
+    } catch (error) {
+      console.error("There was an error fetching therapists:", error);
+    }
+}
+
+  useEffect(() => {
+    fetchData();
+    fetchStoredResponses();
+  }, []);
+
   const [likedTherapists, setLikedTherapists] = useState({});
   const toggleLike = (id) => {
     setLikedTherapists((prevLikedTherapists) => ({
@@ -24,58 +54,6 @@ function Match() {
     }));
   };
 
-
-
-  const data = [
-    {
-      id: "1",
-      name: "Dr. Stanley Karanja",
-      imageUrl:
-        "https://images.pexels.com/photos/7533347/pexels-photo-7533347.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 2,
-      price: "KES 500",
-      specializations:  "anxiety,relationships,stress management,marriage,self-esteem",
-    },
-    {
-      id: "2",
-      name: "Dr. Irene Muthoni",
-      imageUrl:
-        "https://images.pexels.com/photos/12495575/pexels-photo-12495575.png?auto=compress&cs=tinysrgb&w=1600",
-      rating: 4,
-      price: "KES 700",
-      specializations:  "anxiety,relationships,stress management,marriage,self-esteem",
-    },
-    {
-      id: "3",
-      name: "Dr. Stanley Karanja",
-      imageUrl:
-        "https://images.pexels.com/photos/1674666/pexels-photo-1674666.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 3,
-      price: "KES 1000",
-      specializations:
-        "anxiety,relationships,stress management,marriage,self-esteem",
-    },
-    {
-      id: "4",
-      name: "Dr. Stanley Karanja",
-      imageUrl:
-        "https://images.pexels.com/photos/845457/pexels-photo-845457.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 1,
-      price: "KES 500",
-      specializations:
-        "anxiety,relationships,stress management,marriage,self-esteem",
-    },
-    {
-      id: "5",
-      name: "Dr. Stanley Karanja",
-      imageUrl:
-        "https://images.pexels.com/photos/762080/pexels-photo-762080.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      rating: 5,
-      price: "KES 1200",
-      specializations:
-        "anxiety,relationships,stress management,marriage,self-esteem",
-    },
-  ];
 
   const numColumns = 2;
   const navigation = useNavigation();
@@ -91,7 +69,6 @@ function Match() {
       return `${truncatedText}...`;
     }
   }
-  
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -100,7 +77,7 @@ function Match() {
       onPress={() => handlePress(item)}
     >
       <ImageBackground
-        source={{ uri: item.imageUrl }}
+        source={{ uri: item.image }}
         style={styles.backgroundImage}
       >
         <LinearGradient
@@ -124,9 +101,11 @@ function Match() {
                 <Text style={styles.moneyTextSpec}>{item.price}</Text>
               </View>
             </View>
-            <Text style={styles.specializations}>{truncateText(item.specializations, 30)}</Text>
+            <Text style={styles.specializations}>
+              {truncateText(item.specializations, 30)}
+            </Text>
           </View>
-          {likedTherapists[item.id] && ( 
+          {likedTherapists[item.id] && (
             <View style={styles.likeIconContainer}>
               <Ionicons name="heart" size={20} color="#7CB7FD" />
             </View>
@@ -167,14 +146,15 @@ function Match() {
 
       {/* Therapists */}
 
+     {therapists && 
       <View style={styles.gridContainer}>
-        <FlatList
-          data={data}
-          numColumns={numColumns}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-        />
-      </View>
+      <FlatList
+        data={therapists}
+        numColumns={numColumns}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+      />
+    </View>}
     </View>
   );
 }

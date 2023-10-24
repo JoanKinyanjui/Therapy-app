@@ -42,7 +42,7 @@ function Account() {
 
   useEffect(() => {
     fetchData();
-  }, [client]);
+  }, []);
 
 
  
@@ -67,11 +67,11 @@ function Account() {
       });
   
       if (response.ok) {
-        const { clientData } = await response.json();
+        const { clientData ,newPassword} = await response.json();
         setClient({
           ...client,
           email: clientData.email,
-          password: clientData.newPassword,
+          password: newPassword,
           username: clientData.username,
           phoneNumber: clientData.phoneNumber,
         });
