@@ -158,7 +158,7 @@ const [currentGroup, setCurrentGroup] = useState(null);
                   source={require("../../assets/icons/members.png")}
                   style={styles.containerFourIcon}
                 />
-                <Text style={styles.numbers}>0/{item.maxMembers}</Text>
+                <Text style={styles.numbers}>{item.members.length}/{item.maxMembers}</Text>
               </View>
               <View style={styles.groupContainerFourSpec}>
                 <Image
@@ -168,7 +168,7 @@ const [currentGroup, setCurrentGroup] = useState(null);
                 <Text style={styles.numbers}>20</Text>
               </View>
               <View style={styles.groupContainerFourSpec}>
-                {(item.members.length === item.maxMembers)? (
+                {(item.status === 'closed')? (
                   <Image
                     source={require("../../assets/icons/gnotify.png")}
                     style={styles.containerFourIcon}
@@ -184,7 +184,6 @@ const [currentGroup, setCurrentGroup] = useState(null);
                     />
                   </TouchableOpacity>
                 )}
-                <Text style={styles.numbers}>10</Text>
               </View>
             </View>
           </View>
