@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, View } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View } from 'react-native'
 import { Home, Questionnaire } from '../components'
 import { Stack, useRouter } from 'expo-router'
 import BottomNav from '../components/BottomNavigation/BottomNav'
@@ -15,7 +15,7 @@ function questionnaire() {
 
   const fetchTherapy = async () => {
     try {
-        const response = await fetch(`http://localhost:5000/api/clients/therapy/${therapyId}`);
+        const response = await fetch(`https://therapy-app-backend.vercel.app/api/clients/therapy/${therapyId}`);
         const therapyData = await response.json();
         setTherapy(therapyData);
         console.log(therapyData);
@@ -47,7 +47,7 @@ function questionnaire() {
         <Questionnaire data={therapy} />
       </Background>
     </ScrollView>
-  {therapy &&  <CustomHeader title={therapy.title}   showBackButton/> }
+  {therapy ?  <CustomHeader title={therapy.title}   showBackButton/> :<Text>Not</Text> }
     <BottomNav />
   </SafeAreaView>
   )

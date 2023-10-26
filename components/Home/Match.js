@@ -19,7 +19,7 @@ function Match() {
   const [therapists, setTherapists] = useState([]);
   async function fetchData() {
     try {
-      const response = await fetch('http://localhost:5000/api/therapists/all');
+      const response = await fetch('https://therapy-app-backend.vercel.app/api/therapists/all');
       const data = await response.json();
       console.log(data);
       setTherapists(data);

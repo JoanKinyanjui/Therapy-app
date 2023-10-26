@@ -24,7 +24,7 @@ function Account() {
       if (token && clientDetails && clientDetails._id) {
         setTokenString(token);
         
-        const response = await fetch(`http://localhost:5000/api/clients/client/${clientDetails._id}`);
+        const response = await fetch(`https://therapy-app-backend.vercel.app/api/clients/client/${clientDetails._id}`);
         if (response.ok) {
           const data = await response.json();
           setClient(data);
@@ -50,7 +50,7 @@ function Account() {
   const handleSave = async () => {
     const token = await AsyncStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/api/clients/update", {
+      const response = await fetch("https://therapy-app-backend.vercel.app/api/clients/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

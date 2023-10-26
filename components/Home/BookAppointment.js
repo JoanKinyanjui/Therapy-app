@@ -26,26 +26,31 @@ function BookAppointment({ therapistId }) {
   console.log(therapist);
   //Navigate ...
   const navigation = useNavigation();
+
   const bookAppointment = async () => {
     const selectedDate = therapist.availability[selectedDateIndex];
     const day = selectedDate.day;
+    const date = selectedDate.date;
     const time = availableTimes[selectedTimeIndex];
     const mode = modesOfTherapy[selectedMode].mode;
     const storedResponses = await AsyncStorage.getItem("userResponses");
+    const token = await AsyncStorage.getItem("token");
 
     const requestBody = {
         therapistId: therapist._id, 
         day,
+         date,
         time,
         mode,
         questionsAndAnswers: storedResponses, 
     };
 
     try {
-        const response = await fetch('http://localhost:5000/api/clients/book-appointment', {
+        const response = await fetch('https://therapy-app-backend.vercel.app/api/clients/book-appointment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(requestBody),
         });
@@ -81,7 +86,7 @@ function BookAppointment({ therapistId }) {
   async function fetchTherapist() {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/therapists/${therapistId}`
+        `https://therapy-app-backend.vercel.app/api/therapists/${therapistId}`
       );
       const data = await response.json();
       console.log(data);

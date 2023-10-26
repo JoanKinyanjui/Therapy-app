@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Text, View ,ActivityIndicator} from 'react-native';
 import styles from "./schedule.style";
 import { TouchableOpacity } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Schedule() {
-  const rating = 3;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,14 +19,21 @@ function Schedule() {
   
   const fetchAppointments = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/clients/appointments');
+        const token = await AsyncStorage.getItem("token");
+        const response = await fetch('https://therapy-app-backend.vercel.app/api/clients/appointments',{
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+          },
+        });
         
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
   
         const data = await response.json();
-        console.log(data,'aka done'); // Corrected the typo here
+        console.log(data)
         setAppointments(data);
         setLoading(false);
     } catch (err) {
@@ -39,6 +46,12 @@ function Schedule() {
 useEffect(()=>{
   fetchAppointments();
 },[])
+
+const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
 
 if (loading) {
   return <ActivityIndicator size="large" color="#0000ff" />;
@@ -100,17 +113,17 @@ if (error) {
              <View style={styles.partThreeDiv}>
                 <View style={styles.DateDiv}>
                  <Image source={require('../../assets/icons/scheduleblack.png')} style={styles.timeIcons}/>
-                 <Text style={styles.dateText} >25th Sept, 2023</Text>
+                 <Text style={styles.dateText} >{item.date} {monthNames[item.month -1].substring(0,3)}, 2023</Text>
                 </View>
                 <View style={styles.DateDiv}>
                  <Image source={require('../../assets/icons/clock.png')} style={styles.timeIcons}/>
-                 <Text style={styles.dateText}> 04 : 30 PM</Text>
+                 <Text style={styles.dateText}> {item.time}</Text>
                 </View>
              </View>
        </View>
        </View>
                )}
-               keyExtractor={(item) => item.key}
+               keyExtractor={(item) => item._id}
              />
        </View>
       )}
@@ -152,17 +165,17 @@ if (error) {
                  <View style={styles.partThreeDiv}>
                     <View style={styles.DateDiv}>
                      <Image source={require('../../assets/icons/scheduleblack.png')} style={styles.timeIcons}/>
-                     <Text style={styles.dateText} >25th Sept, 2023</Text>
+                     <Text style={styles.dateText} >{item.date} {monthNames[item.month -1].substring(0,3)}, 2023</Text>
                     </View>
                     <View style={styles.DateDiv}>
                      <Image source={require('../../assets/icons/clock.png')} style={styles.timeIcons}/>
-                     <Text style={styles.dateText}> 04 : 30 PM</Text>
+                     <Text style={styles.dateText}>{item.time}</Text>
                     </View>
                  </View>
            </View>
            </View>
                    )}
-                   keyExtractor={(item) => item.key}
+                   keyExtractor={(item) => item._id}
                  />
            </View>
        

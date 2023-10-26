@@ -1,42 +1,101 @@
-import React, { useState } from "react";
-import { FlatList, Image, Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Image, Text, TextInput, View , Modal, Button} from "react-native";
 import styles from "./peer.style";
 import { TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function PeerGroup() {
-  const groups = [
-    {
-      key: "1",
-      title: "Let's Talk Intimacy",
-      percentage: "60%",
-      desc: "...",
-      full: false,
-      image:
-        "https://images.pexels.com/photos/1001445/pexels-photo-1001445.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
+  const [peerGroups, setPeerGroups] = useState();
+  const fetchPeerGroups = async () => {
+    const response = await fetch(
+      "https://therapy-app-backend.vercel.app/api/peer-groups"
+    );
+    const data = await response.json();
+    console.log(data);
+    setPeerGroups(data);
+  };
 
-    {
-      key: "2",
-      title: "Peaceful Life",
-      percentage: "100%",
-      desc: "...",
-      full: true,
-      image:
-        "https://images.pexels.com/photos/3868873/pexels-photo-3868873.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-    {
-      key: "3",
-      title: "Postpartum Depression",
-      percentage: "60%",
-      desc: "...",
-      full: false,
-      image:
-        "https://images.pexels.com/photos/3094422/pexels-photo-3094422.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-  ];
+  useEffect(() => {
+    fetchPeerGroups();
+  }, []);
 
+  async function joinGroup(groupId, pseudoName) {
+    console.log(groupId,pseudoName)
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const response = await fetch(
+        `https://therapy-app-backend.vercel.app/api/peer-groups/join/${groupId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ pseudoName: pseudoName }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Successfully joined the group!");
+        fetchPeerGroups();
+      } else {
+        console.log(data.message || "Error joining group.");
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("Error joining group. Please try again.");
+    }
+  }
+  const [pseudoName, setPseudoName] = useState('');
+  const [fee,setFee] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+const [currentGroup, setCurrentGroup] = useState(null);
+  const modalComponent = (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}
+    >
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
+          <Text   style={{textAlign:"center", fontSize:14, color:"#B4B2B2",marginTop: 5}}>Enter a pseudonym to use in the group :</Text>
+          <TextInput
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginTop: 10, color:"#B4B2B2" ,paddingHorizontal:5 }}
+            onChangeText={text => setPseudoName(text)}
+          
+            value={pseudoName}
+          />
+            <Text style={{textAlign:"center", fontSize:14, color:"#B4B2B2",marginTop: 5}}>Enter phone number to be used for payment:</Text>
+           <TextInput
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginVertical: 5,paddingHorizontal:5, color:"#B4B2B2" }}
+            onChangeText={text => setFee(text)}
+            value={fee}
+          />
+          <TouchableOpacity
+            style={{ marginTop: 20, backgroundColor: '#7CB7FD', padding: 10, alignItems: 'center', borderRadius: 5 }}
+            onPress={() => {
+              if (currentGroup)  {
+                joinGroup(currentGroup._id, pseudoName,fee);
+                setModalVisible(false);
+                setPseudoName('');  
+                setFee('');
+              }
+            }}
+          >
+            <Text style={{ color: 'white' }}>Join Group</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
   return (
     <View style={styles.container}>
+       {modalComponent}
       <View style={styles.serachDiv}>
         <View style={styles.inputContainer}>
           <Image
@@ -62,18 +121,18 @@ function PeerGroup() {
       </View>
 
       <FlatList
-        data={groups}
+        data={peerGroups}
         numColumns={1}
         renderItem={({ item }) => (
           <View style={styles.groupOverallContainer}>
             <View style={styles.groupContainerOne}>
               <Text style={styles.groupContainerOneText}>{item.title}</Text>
-              <Text style={styles.percentageMembers}>{item.percentage}</Text>
+              <Text style={styles.percentageMembers}>KES {item.fee}</Text>
             </View>
 
             <View style={styles.groupContainerTwo}>
               <Text style={styles.groupContainerTwoText}>
-              Join 'Let's Talk Intimacy,' where we discuss relationships, connection, and intimacy in a safe and open space.
+                {item.description}
               </Text>
             </View>
 
@@ -92,14 +151,14 @@ function PeerGroup() {
                   source={require("../../assets/icons/blacklove.png")}
                   style={styles.containerFourIcon}
                 />
-                <Text style={styles.numbers}>70</Text>
+                <Text style={styles.numbers}>{item.likes}</Text>
               </View>
               <View style={styles.groupContainerFourSpec}>
                 <Image
-                  source={require("../../assets/icons/gcomments.png")}
+                  source={require("../../assets/icons/members.png")}
                   style={styles.containerFourIcon}
                 />
-                <Text style={styles.numbers}>400</Text>
+                <Text style={styles.numbers}>0/{item.maxMembers}</Text>
               </View>
               <View style={styles.groupContainerFourSpec}>
                 <Image
@@ -109,21 +168,28 @@ function PeerGroup() {
                 <Text style={styles.numbers}>20</Text>
               </View>
               <View style={styles.groupContainerFourSpec}>
-               {(item.percentage  === "100%") ?
-                <Image
-                source={require("../../assets/icons/gnotify.png")}
-                style={styles.containerFourIcon}
-              />:
-              <Image
-              source={require("../../assets/icons/gadd.png")}
-              style={styles.containerFourIcon}
-            />}
+                {(item.members.length === item.maxMembers)? (
+                  <Image
+                    source={require("../../assets/icons/gnotify.png")}
+                    style={styles.containerFourIcon}
+                  />
+                ) : (
+                  <TouchableOpacity  onPress={() => {
+                    setCurrentGroup(item);
+                    setModalVisible(true);
+                  }}>
+                    <Image
+                      source={require("../../assets/icons/add.png")}
+                      style={styles.containerFourIcon}
+                    />
+                  </TouchableOpacity>
+                )}
                 <Text style={styles.numbers}>10</Text>
               </View>
             </View>
           </View>
         )}
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item) => item._id}
       />
     </View>
   );

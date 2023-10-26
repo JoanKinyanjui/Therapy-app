@@ -30,7 +30,7 @@ function SignUp() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/clients/register",
+        "https://therapy-app-backend.vercel.app/api/clients/register",
         {
           method: "POST",
           headers: {

@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
         fontFamily:"System"
       },
       percentageMembers:{
-      fontWeight:"bold",
-      fontSize:SIZES.small,
+      fontWeight:"normal",
+      fontSize:SIZES.xSmall,
       color:COLORS.primary,
       },
       groupContainerTwo:{
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
             flexDirection:"row",
         },
         groupProfile:{
-         height:140,
+         height:150,
          borderRadius:5,
          justifyContent: "center",
          width:"100%",
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
            gap:3,
         },
         containerFourIcon:{
-            width:20,
-            height:20,
+            width:15,
+            height:15,
         },
         numbers:{
             fontSize:SIZES.xSmall,

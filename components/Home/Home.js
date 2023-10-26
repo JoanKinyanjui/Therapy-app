@@ -11,7 +11,7 @@ function Home() {
   async function fetchTherapies() {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/clients/therapyCategories"
+        "https://therapy-app-backend.vercel.app/api/clients/therapyCategories"
       );
       const data = await response.json();
       setTherapies(data);
@@ -83,7 +83,6 @@ function Home() {
           keyExtractor={(item) => item._id}
         />
       </View>
-      {/* </Background> */}
     </View>
   );
 }
