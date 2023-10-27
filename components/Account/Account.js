@@ -5,6 +5,7 @@ import styles from "./account.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import Toast from 'react-native-toast-message';
 
 function Account() {
   //Token Acquiring
@@ -15,6 +16,22 @@ function Account() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter()
+
+  const showSuccessNotification = (text) => {
+    Toast.show({
+        type: 'success', 
+        text2: text,
+        visibilityTime: 2000,
+        position: 'bottom',
+    });
+}
+const showErrorNotification = (text) => {
+  Toast.show({
+      type: 'error', 
+      text2: text,
+      visibilityTime: 2000,
+  });
+}
 
   async function fetchData() {
     try {
@@ -66,8 +83,8 @@ function Account() {
         }),
       });
   
-      if (response.ok) {
-        const { clientData ,newPassword} = await response.json();
+      if (response.status === 200) {
+        const { clientData ,newPassword,message} = await response.json();
         setClient({
           ...client,
           email: clientData.email,
@@ -76,11 +93,12 @@ function Account() {
           phoneNumber: clientData.phoneNumber,
         });
         setIsEditing(false);
+        showSuccessNotification(message)
       } else {
-        console.log("an error occurred");
+        showErrorNotification( data.messag )
       }
     } catch (error) {
-      console.error("There was an error updating the client.", error);
+      showErrorNotification("There was an error updating.Please try again later");
     }
   };
   
@@ -194,6 +212,7 @@ function Account() {
           <Text style={styles.menuPrice}></Text>
         </TouchableOpacity>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </View>
   );
 }

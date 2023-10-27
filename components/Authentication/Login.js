@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, TextInput, Image } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./login.style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from 'react-native-toast-message';
 
 function Login() {
   const router = useRouter();
@@ -10,6 +11,22 @@ function Login() {
   const handleOptionSelect = () => {
     setSelectedOption(!selectedOption);
   };
+
+  const showSuccessNotification = (text) => {
+    Toast.show({
+        type: 'success', 
+        text2: text,
+        visibilityTime: 2000,
+        position: 'bottom',
+    });
+}
+const showErrorNotification = (text) => {
+  Toast.show({
+      type: 'error', 
+      text2: text,
+      visibilityTime: 2000,
+  });
+}
 
   //Auth Logic
   const [email, setEmail] = useState("");
@@ -30,14 +47,14 @@ function Login() {
       if (response.ok) {
         await AsyncStorage.setItem("token", data.token);
         await AsyncStorage.setItem("client", JSON.stringify(data.client));
-        console.log("Login successful", data);
+        showSuccessNotification(data.message)
         router.push("/home");
       } else {
-        console.log(data.error || "Error signing up");
+        showErrorNotification( data.message || "Error signing up" )
       }
     } catch (error) {
-      console.error("There was an error signing up:", error);
-      console.log("Error signing up. Please try again.");
+      showErrorNotification( data.message || "Error signing up" )
+      
     }
   };
 
@@ -107,6 +124,7 @@ function Login() {
           <Text style={styles.alternativeAuthText}>SignUp</Text>
         </TouchableOpacity>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </View>
   );
 }

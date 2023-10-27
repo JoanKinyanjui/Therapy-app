@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, Text, TextInput, View , Modal, Button} from "react-native";
+import { FlatList, Image, Text, TextInput, View ,TouchableWithoutFeedback, Modal, Button} from "react-native";
 import styles from "./peer.style";
 import { TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from 'react-native-toast-message';
 
 function PeerGroup() {
   const [peerGroups, setPeerGroups] = useState();
+
+  const showSuccessNotification = (text) => {
+    Toast.show({
+        type: 'success', 
+        text2: text,
+        visibilityTime: 2000,
+        position: 'bottom',
+    });
+}
+const showErrorNotification = (text) => {
+  Toast.show({
+      type: 'error', 
+      text2: text,
+      visibilityTime: 3000,
+  });
+}
   const fetchPeerGroups = async () => {
     const response = await fetch(
       "https://therapy-app-backend.vercel.app/api/peer-groups"
@@ -48,6 +65,38 @@ function PeerGroup() {
       console.log("Error joining group. Please try again.");
     }
   }
+
+  async function joinWaitlist(groupId) {
+    try {
+        const token = await AsyncStorage.getItem("token");
+        const response = await fetch(
+            `http://therapy-app-backend.vercel.app/api/peer-groups/join-waitlist/${groupId}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+      
+        const data = await response.json();
+        if (!response.ok) {
+          console.error("Response not OK:", response.status, response.statusText);
+      }
+      
+
+        if (response.status === 200) {
+            showSuccessNotification(data.message);
+            fetchPeerGroups();  
+        } else {
+            showErrorNotification(data.message);
+        }
+    } catch (error) {
+      console.error("Error in /join-waitlist:", error.message);
+        showErrorNotification("Error joining waitlist. Please try again.");
+    }
+}
   const [pseudoName, setPseudoName] = useState('');
   const [fee,setFee] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -61,7 +110,9 @@ const [currentGroup, setCurrentGroup] = useState(null);
         setModalVisible(false);
       }}
     >
+      <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <TouchableWithoutFeedback>
         <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
           <Text   style={{textAlign:"center", fontSize:14, color:"#B4B2B2",marginTop: 5}}>Enter a pseudonym to use in the group :</Text>
           <TextInput
@@ -90,7 +141,9 @@ const [currentGroup, setCurrentGroup] = useState(null);
             <Text style={{ color: 'white' }}>Join Group</Text>
           </TouchableOpacity>
         </View>
+        </TouchableWithoutFeedback>
       </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
   return (
@@ -169,10 +222,12 @@ const [currentGroup, setCurrentGroup] = useState(null);
               </View>
               <View style={styles.groupContainerFourSpec}>
                 {(item.status === 'closed')? (
-                  <Image
+                 <TouchableOpacity onPress={()=>joinWaitlist(item._id)}>
+                   <Image
                     source={require("../../assets/icons/gnotify.png")}
                     style={styles.containerFourIcon}
                   />
+                 </TouchableOpacity>
                 ) : (
                   <TouchableOpacity  onPress={() => {
                     setCurrentGroup(item);
@@ -190,6 +245,7 @@ const [currentGroup, setCurrentGroup] = useState(null);
         )}
         keyExtractor={(item) => item._id}
       />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
     </View>
   );
 }

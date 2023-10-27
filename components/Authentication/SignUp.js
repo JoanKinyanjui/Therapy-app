@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, TextInput, Image } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./login.style";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 
 
@@ -20,11 +21,24 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-
-
+  const showSuccessNotification = (text) => {
+    Toast.show({
+        type: 'success', 
+        text2: text,
+        visibilityTime: 2000,
+        position: 'bottom',
+    });
+}
+const showErrorNotification = (text) => {
+  Toast.show({
+      type: 'error', 
+      text2: text,
+      visibilityTime: 2000,
+  });
+}
   const handleOnSubmit = async () => {
     if (password !== confirmPassword) {
-      console.log("Passwords do not match!");
+      showErrorNotification("Passwords did not match")
       return;
     }
 
@@ -45,16 +59,17 @@ function SignUp() {
       if (response.ok) {
         await AsyncStorage.setItem("token", data.token);
         await AsyncStorage.setItem("client", JSON.stringify(data.client));
-        console.log("Login successful", data);
+        console.log("signing up successful", data);
+       showSuccessNotification(data.message)
         router.push("/home");
       } else if (response.status === 400) {
-        console.log("Client already exists");
+        showErrorNotification(data.message)
       } else {
-        console.log(data.message || "Error signing up");
+        showErrorNotification( data.message || "Error signing up" )
       }
     } catch (error) {
       console.error("There was an error signing up:", error);
-      console.log("Error signing up. Please try again.");
+      showErrorNotification("Error signing up. Please try again.")
     }
   };
 
@@ -164,8 +179,10 @@ function SignUp() {
           />
         </View>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </View>
   );
 }
 
 export default SignUp;
+
