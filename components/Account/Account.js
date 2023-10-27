@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import Toast from 'react-native-toast-message';
-import { launchImageLibrary } from 'react-native-image-picker';
+// import { launchImageLibrary } from 'react-native-image-picker';
 
 
 function Account() {
@@ -152,55 +152,55 @@ const showErrorNotification = (text) => {
     },
   ];
 
-  const [image,setImage] = useState("");
-  const [picLoading, setPicLoading] = useState(false);
+//   const [image,setImage] = useState("");
+//   const [picLoading, setPicLoading] = useState(false);
 
-  const selectImage = () => {
-    const options = {
-        title: 'Select Image',
-        storageOptions: {
-            skipBackup: true,
-            path: 'images',
-        },
-    };
+//   const selectImage = () => {
+//     const options = {
+//         title: 'Select Image',
+//         storageOptions: {
+//             skipBackup: true,
+//             path: 'images',
+//         },
+//     };
 
-    launchImageLibrary(options, async(response) => {
-        if (response.didCancel) {
-            console.log('User cancelled image picker');
-        } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-        } else {
-      const source = { uri: response.uri };
-      await uploadToCloudinary(source.uri);
-        }
-    });
-};
+//     launchImageLibrary(options, async(response) => {
+//         if (response.didCancel) {
+//             console.log('User cancelled image picker');
+//         } else if (response.error) {
+//             console.log('ImagePicker Error: ', response.error);
+//         } else {
+//       const source = { uri: response.uri };
+//       await uploadToCloudinary(source.uri);
+//         }
+//     });
+// };
 
-const uploadToCloudinary = async (uri) => {
-  const formData = new FormData();
-  formData.append('file', {
-    uri,
-    type: 'image/jpeg', 
-    name: 'profile.jpg',
-  });
-  formData.append("upload_preset", "better-you");
-  formData.append("cloud_name", "dbvffmwhe"); 
+// const uploadToCloudinary = async (uri) => {
+//   const formData = new FormData();
+//   formData.append('file', {
+//     uri,
+//     type: 'image/jpeg', 
+//     name: 'profile.jpg',
+//   });
+//   formData.append("upload_preset", "better-you");
+//   formData.append("cloud_name", "dbvffmwhe"); 
 
-  try {
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`,
-      formData
-    );
-    if (response.data && response.data.secure_url) {
-      const imageUrl = response.data.secure_url;
-     setImage(imageUrl)
-    } else {
-      console.log('Failed to upload image to Cloudinary');
-    }
-  } catch (error) {
-    console.log('Error uploading to Cloudinary: ', error);
-  }
-};
+//   try {
+//     const response = await fetch(
+//       `https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`,
+//       formData
+//     );
+//     if (response.data && response.data.secure_url) {
+//       const imageUrl = response.data.secure_url;
+//      setImage(imageUrl)
+//     } else {
+//       console.log('Failed to upload image to Cloudinary');
+//     }
+//   } catch (error) {
+//     console.log('Error uploading to Cloudinary: ', error);
+//   }
+// };
 
 
 
@@ -209,18 +209,12 @@ const uploadToCloudinary = async (uri) => {
   return (
     <View style={styles.container}>
       <View>
-      {
-    isEditing ? (
-      <TouchableOpacity onPress={selectImage} style={styles.editImageButton}>
-        <Text>Select New Image</Text>
-      </TouchableOpacity>
-    ) : (
+  
       <Image
         source={{ uri: client && client.image ? client.image : 'YOUR_FALLBACK_IMAGE_URL'}}
         style={styles.accountProfile}
       />
-    )
-  }
+  
         <TouchableOpacity onPress={() => setIsEditing(true)}>
           <Image
             source={require("../../assets/icons/edit.png")}

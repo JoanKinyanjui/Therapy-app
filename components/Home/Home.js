@@ -3,7 +3,6 @@ import { FlatList, Image, ImageBackground, Text, View } from "react-native";
 import styles from "./home.style";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
-import LoadingComponent from "../LoadingComponent";
 
 function Home() {
   const [therapies, setTherapies] = useState([]);

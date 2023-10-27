@@ -20,7 +20,7 @@ function peer() {
           <PeerGroup />
         </Background>
       </ScrollView>
-      <CustomHeader title="Home" showAccountPic />
+      <CustomHeader title="Peer Groups" showAccountPic />
       <BottomNav />
     </SafeAreaView>
   );

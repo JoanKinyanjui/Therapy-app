@@ -4,8 +4,10 @@ import styles from "./custom.style";
 import { Link } from "expo-router";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 const CustomHeader = ({ title, showBackButton, showAccountPic }) => {
+  const navigation = useNavigation();
   const goBack = () => {
     console.log("moving back");
     router.back();
@@ -32,8 +34,8 @@ const CustomHeader = ({ title, showBackButton, showAccountPic }) => {
       )}
       <Text style={styles.title}>{title}</Text>
       {showAccountPic && (
-        <Link href="/account">
-          <TouchableOpacity>
+      
+          <TouchableOpacity onPress={() => navigation.navigate('account')}>
             <Image
               source={{
                 uri: client
@@ -43,7 +45,6 @@ const CustomHeader = ({ title, showBackButton, showAccountPic }) => {
               style={styles.accountStyle}
             />
           </TouchableOpacity>
-        </Link>
       )}
     </View>
   );
