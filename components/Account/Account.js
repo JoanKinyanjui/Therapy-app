@@ -6,6 +6,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import Toast from 'react-native-toast-message';
+import { launchImageLibrary } from 'react-native-image-picker';
+
 
 function Account() {
   //Token Acquiring
@@ -78,7 +80,7 @@ const showErrorNotification = (text) => {
           phoneNumber: client.phoneNumber,
           password: client.password,
           email: client.email,
-          image: "https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_1280.png",
+          image: image,
           clientId: client._id,
         }),
       });
@@ -95,7 +97,7 @@ const showErrorNotification = (text) => {
         setIsEditing(false);
         showSuccessNotification(message)
       } else {
-        showErrorNotification( data.messag )
+        showErrorNotification( data.message )
       }
     } catch (error) {
       showErrorNotification("There was an error updating.Please try again later");
@@ -149,16 +151,76 @@ const showErrorNotification = (text) => {
       price: "",
     },
   ];
+
+  const [image,setImage] = useState("");
+  const [picLoading, setPicLoading] = useState(false);
+
+  const selectImage = () => {
+    const options = {
+        title: 'Select Image',
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
+    launchImageLibrary(options, async(response) => {
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+        } else {
+      const source = { uri: response.uri };
+      await uploadToCloudinary(source.uri);
+        }
+    });
+};
+
+const uploadToCloudinary = async (uri) => {
+  const formData = new FormData();
+  formData.append('file', {
+    uri,
+    type: 'image/jpeg', 
+    name: 'profile.jpg',
+  });
+  formData.append("upload_preset", "better-you");
+  formData.append("cloud_name", "dbvffmwhe"); 
+
+  try {
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`,
+      formData
+    );
+    if (response.data && response.data.secure_url) {
+      const imageUrl = response.data.secure_url;
+     setImage(imageUrl)
+    } else {
+      console.log('Failed to upload image to Cloudinary');
+    }
+  } catch (error) {
+    console.log('Error uploading to Cloudinary: ', error);
+  }
+};
+
+
+
+
+  
   return (
     <View style={styles.container}>
       <View>
-        <Image
-          source={{
-            uri:
-             client && client.image
-          }}
-          style={styles.accountProfile}
-        />
+      {
+    isEditing ? (
+      <TouchableOpacity onPress={selectImage} style={styles.editImageButton}>
+        <Text>Select New Image</Text>
+      </TouchableOpacity>
+    ) : (
+      <Image
+        source={{ uri: client && client.image ? client.image : 'YOUR_FALLBACK_IMAGE_URL'}}
+        style={styles.accountProfile}
+      />
+    )
+  }
         <TouchableOpacity onPress={() => setIsEditing(true)}>
           <Image
             source={require("../../assets/icons/edit.png")}

@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "screenHeight",
     paddingTop: 60,
+    flex: 1,
   },
   containerOne: {
     fontFamily: "System",

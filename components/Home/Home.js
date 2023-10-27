@@ -3,6 +3,7 @@ import { FlatList, Image, ImageBackground, Text, View } from "react-native";
 import styles from "./home.style";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
+import LoadingComponent from "../LoadingComponent";
 
 function Home() {
   const [therapies, setTherapies] = useState([]);
@@ -27,10 +28,10 @@ function Home() {
  fetchTherapies();
   }, []);
 
-  if (loading) return( <Text>Loading...</Text>)
 
   return (
     <View style={styles.container}>
+     
       <View style={styles.topContainer}>
         <Text style={styles.paraOne}>
           Discover happiness and peace of mind through
@@ -42,6 +43,7 @@ function Home() {
         </Text>
       </View>
 
+   
       <View style={styles.bottomContainer}>
         <FlatList
           data={therapies}
@@ -83,6 +85,7 @@ function Home() {
           keyExtractor={(item) => item._id}
         />
       </View>
+
     </View>
   );
 }
