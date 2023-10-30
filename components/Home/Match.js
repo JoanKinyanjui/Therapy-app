@@ -32,6 +32,27 @@ function Match() {
     fetchData();
   }, []);
 
+  const addToFavorites = async (therapistId) => {
+    console.log(therapistId)
+    try {
+      const token = await AsyncStorage.getItem("token");
+        const response = await fetch(`https://therapy-app-backend.vercel.app/api/clients/favorites/add/${therapistId}`, 
+        {
+           method: 'POST' ,
+           headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+          });
+        const result = await response.json();
+        console.log(result.message);
+        refresh();
+    } catch (error) {
+        console.log("Error adding to favorites.");
+    }
+};
+
+
   const [likedTherapists, setLikedTherapists] = useState({});
   const toggleLike = (id) => {
     setLikedTherapists((prevLikedTherapists) => ({
@@ -47,19 +68,19 @@ function Match() {
     navigation.navigate("book", { therapist: item });
   };
 
-  function truncateText(text, maxLength) {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      const truncatedText = text.substring(0, maxLength);
-      return `${truncatedText}...`;
-    }
-  }
+  // function truncateText(text, maxLength) {
+  //   if (text.length <= maxLength) {
+  //     return text;
+  //   } else {
+  //     const truncatedText = text.substring(0, maxLength);
+  //     return `${truncatedText}...`;
+  //   }
+  // }
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onLongPress={() => toggleLike(item._id)}
+      onLongPress={() =>{ toggleLike(item._id); addToFavorites(item._id)}}
       onPress={() => handlePress(item)}
     >
       <ImageBackground
@@ -88,7 +109,7 @@ function Match() {
               </View>
             </View>
             <Text style={styles.specializations}>
-              {truncateText(item.specializations, 30)}
+              {item.specializations.join(', ')}
             </Text>
           </View>
           {likedTherapists[item._id] && (

@@ -1,49 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./favourites.style";
 import { FlatList, Image, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "expo-router";
 
 function Favourites() {
-  const rating = 3;
+ 
+  const [favorites, setFavorites] = useState([]);
+    
+  const fetchFavorites = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+          const response = await fetch(`https://therapy-app-backend.vercel.app/api/clients/favorites`,
+          { method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+       });
+          const data = await response.json();
+          console.log(data);
+          setFavorites(data);
+      } catch (error) {
+          console.error("Error fetching favorite therapists:", error);
+      }
+  };
 
-  const favourites = [
-    {
-      key: "1",
-      name: "Joan Kinyanjui",
-      link: "",
-      image:
-        "https://images.pexels.com/photos/5996857/pexels-photo-5996857.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      key: "2",
-      name: "Dian Ngoa",
-      link: "",
-      image:
-        "https://images.pexels.com/photos/6579051/pexels-photo-6579051.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-    {
-      key: "3",
-      name: "Winfred Wanjiru",
-      link: "",
-      image:
-        "https://images.pexels.com/photos/5896510/pexels-photo-5896510.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-    {
-      key: "4",
-      name: "Melany Kandie",
-      link: "",
-      image:
-        "https://images.pexels.com/photos/7658250/pexels-photo-7658250.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-  ];
+  useEffect(() => {
+      fetchFavorites();
+  }, []);
+
+  const removeFromFavorites = async (therapistId) => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+        const response = await fetch(`https://therapy-app-backend.vercel.app/api/clients/favorites/remove/${therapistId}`, 
+        { method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+      },
+     });
+        const result = await response.json();
+        fetchFavorites();
+    } catch (error) {
+        console.log("Error removing from favorites.");
+    }
+};
+const navigation = useNavigation();
+const handlePress = (item) => {
+  navigation.navigate("book", { therapist: item });
+};
+
+if(favorites.length === 0){
+  return( <Text>You do not have any favorites yet!!</Text>)
+
+}
   return (
     <View style={styles.container}>
       <View style={styles.favouritescontainer}>
         <FlatList
-          data={favourites}
+          data={favorites}
           numColumns={1}
           renderItem={({ item }) => (
-            <View style={styles.rectangleDiv}>
+            <TouchableOpacity  onPress={() => handlePress(item)}  style={styles.rectangleDiv}>
               <View style={styles.itemOne}>
                 <Image
                   style={styles.ProfileImage}
@@ -58,7 +78,7 @@ function Favourites() {
                   <Text style={styles.nameFavourites}>{item.name}</Text>
                 </View>
                 <View style={styles.starsDiv}>
-      {Array.from({ length: rating }, (_, index) => (
+      {Array.from({ length: item.rating }, (_, index) => (
                   <Image
                     key={index}
                     style={styles.starsInAppointment}
@@ -68,13 +88,13 @@ function Favourites() {
       </View>
               </View>
 
-              <TouchableOpacity style={styles.itemThree}>
+              <TouchableOpacity style={styles.itemThree} onPress={()=>removeFromFavorites(item._id)}>
                 <View style={styles.RemoveIcon}></View>
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
             
           )}
-          keyExtractor={(item) => item.key}
+          keyExtractor={(item) => item._id}
         />
       </View>
     </View>
