@@ -12,7 +12,6 @@ const BottomNav = () => {
     console.log(currentRouteName)
 
   return (
-    // <SafeAreaView  style={{ flex: 0, backgroundColor: 'white' }}>
     <View  style={styles.bottomNav}>
       <Link href="/home" routeName="home">
           {currentRouteName === 'home' ? (
@@ -57,8 +56,8 @@ const BottomNav = () => {
       </Link>
 
 
-      <Link href="/favourites" routeName="favorites">
-      {currentRouteName === 'home' ? (
+      <Link href="/video" routeName="favorites">
+      {currentRouteName === 'video' ? (
             <Image
               source={require('../../assets/icons/like.png')} 
               style={styles.imageIconActive}
@@ -85,7 +84,6 @@ const BottomNav = () => {
           )}
       </Link>
     </View>
-    // </SafeAreaView>
 
   );
 };
