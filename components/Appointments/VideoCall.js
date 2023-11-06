@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 function VideoCall() {
   const [roomUrl, setRoomUrl] = useState(null);
+  const [startCall, setStartCall] = useState(false);
 
   useEffect(() => {
     async function getRoomUrl() {
       try {
-        const response = await fetch('https://therapy-app-backend.vercel.app/api/appointment/createRoom',{
+        const response = await fetch('https://therapy-app-backend.vercel.app/api/appointment/createRoom', {
           method: 'POST',
         });
         const data = await response.json();
         setRoomUrl(data.url);
-        console.log("data" , data);
+        console.log("Room data:", data);
       } catch (error) {
         console.error("Couldn't get room URL:", error);
       }
@@ -22,12 +23,46 @@ function VideoCall() {
     getRoomUrl();
   }, []);
 
-  return roomUrl ? (
-    <WebView
-      source={{ uri: roomUrl }}
-      style={{ flex: 1 }}
-    />
-  ) : <Text>Loading ...</Text>; 
+  if (startCall && roomUrl) {
+    return (
+<WebView
+  source={{ uri: roomUrl }}
+  mixedContentMode="compatibility"
+  javaScriptEnabled={true}
+  domStorageEnabled={true}
+  style={{ flex: 1 }}
+  onError={(syntheticEvent) => {
+    const { nativeEvent } = syntheticEvent;
+    console.error('WebView error: ', nativeEvent);
+  }}
+  onHttpError={(syntheticEvent) => {
+    const { nativeEvent } = syntheticEvent;
+    console.error('HTTP error: ', nativeEvent.statusCode);
+  }}
+  startInLoadingState={true}
+  renderLoading={() => (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
+      <Text>Loading...</Text>
+    </View>
+  )}
+/>
+
+    );
+  }
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      {roomUrl ? (
+        <TouchableOpacity
+          onPress={() => setStartCall(true)}
+          style={{ padding: 20, backgroundColor: 'blue', borderRadius: 5, marginTop: 50, }}>
+          <Text style={{ color: 'black' }}>Start Video Call</Text>
+        </TouchableOpacity>
+      ) : (
+        <Text>Loading...</Text>
+      )}
+    </View>
+  );
 }
 
 export default VideoCall;

@@ -56,8 +56,8 @@ const BottomNav = () => {
       </Link>
 
 
-      <Link href="/video" routeName="favorites">
-      {currentRouteName === 'video' ? (
+      <Link href="/favourites" routeName="favorites">
+      {currentRouteName === 'favorites' ? (
             <Image
               source={require('../../assets/icons/like.png')} 
               style={styles.imageIconActive}

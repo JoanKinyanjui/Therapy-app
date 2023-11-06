@@ -4,6 +4,15 @@
     "web": {
       "bundler": "metro"
     },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to make video calls.",
+        "NSMicrophoneUsageDescription": "This app uses the microphone to capture audio during video calls."
+      }
+    },
+    "android": {
+      "permissions": ["CAMERA", "RECORD_AUDIO"]
+    },
     "plugins": [
       "expo-router"
     ],
