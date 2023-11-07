@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Text, View ,ActivityIndicator} from 'react-native';
 import styles from "./schedule.style";
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity,Linking } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Schedule() {
@@ -52,6 +52,35 @@ const monthNames = [
   "July", "August", "September", "October", "November", "December"
 ];
 
+
+async function getRoomUrl() {
+  try {
+    const response = await fetch('https://therapy-app-backend.vercel.app/api/appointment/createRoom', {
+      method: 'POST',
+    });
+    const data = await response.json();
+    console.log("Room data:", data);
+    return data.url; 
+  } catch (error) {
+    console.error("Couldn't get room URL:", error);
+    return null; 
+  }
+}
+
+const handlePress = async () => {
+  const url = await getRoomUrl(); // Wait for the URL to be retrieved
+  console.log(url);
+  if (url) {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      console.log(`Don't know how to open this URL: ${url}`);
+    }
+  } else {
+    console.log('No room URL available');
+  }
+}
 
 if (loading) {
   return <ActivityIndicator size="large" color="#0000ff" />;
@@ -117,10 +146,22 @@ if (error) {
                 </View>
                 <View style={styles.DateDiv}>
                  <Image source={require('../../assets/icons/clock.png')} style={styles.timeIcons}/>
-                 <Text style={styles.dateText}> {item.time}</Text>
+                 <Text style={styles.dateText}> {item.time} </Text>
                 </View>
              </View>
        </View>
+
+       <View style={styles.partThreeDiv}>
+       <TouchableOpacity style={styles.JoinButtonDivSpecial} onPress={handlePress}>
+      <Text style={styles.buttonTextSpecial}>Join</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.JoinButtonDiv}>
+      <Text style={styles.buttonText}>Cancel</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.JoinButtonDiv}>
+      <Text style={styles.buttonText}>Reschedule</Text>
+    </TouchableOpacity>
+  </View>
        </View>
                )}
                keyExtractor={(item) => item._id}
@@ -173,6 +214,14 @@ if (error) {
                     </View>
                  </View>
            </View>
+           <View style={styles.partThreeDiv}>
+    <TouchableOpacity style={styles.JoinButtonDiv}>
+      <Text style={styles.buttonText}>Book A gain</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.JoinButtonDivSpecial}>
+      <Text style={styles.buttonTextSpecial}>Leave a Review</Text>
+    </TouchableOpacity>
+  </View>
            </View>
                    )}
                    keyExtractor={(item) => item._id}

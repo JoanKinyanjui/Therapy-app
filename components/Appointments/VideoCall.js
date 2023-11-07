@@ -26,10 +26,12 @@ function VideoCall() {
   if (startCall && roomUrl) {
     return (
 <WebView
-  source={{ uri: roomUrl }}
-  mixedContentMode="compatibility"
-  javaScriptEnabled={true}
-  domStorageEnabled={true}
+ mixedContentMode="compatibility"
+ javaScriptEnabled={true}
+ domStorageEnabled={true}
+ allowsInlineMediaPlayback={true} 
+ mediaPlaybackRequiresUserAction={false} 
+ mediaPlaybackRequiresUserGesture={false} 
   style={{ flex: 1 }}
   onError={(syntheticEvent) => {
     const { nativeEvent } = syntheticEvent;

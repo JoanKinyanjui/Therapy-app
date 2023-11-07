@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import Toast from 'react-native-toast-message';
-// import { launchImageLibrary } from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 function Account() {
@@ -64,45 +64,6 @@ const showErrorNotification = (text) => {
   }, []);
 
 
- 
-
-  const handleSave = async () => {
-    const token = await AsyncStorage.getItem("token");
-    try {
-      const response = await fetch("https://therapy-app-backend.vercel.app/api/clients/update", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({
-          username: client.username,
-          phoneNumber: client.phoneNumber,
-          password: client.password,
-          email: client.email,
-          image: image,
-          clientId: client._id,
-        }),
-      });
-  
-      if (response.status === 200) {
-        const { clientData ,newPassword,message} = await response.json();
-        setClient({
-          ...client,
-          email: clientData.email,
-          password: newPassword,
-          username: clientData.username,
-          phoneNumber: clientData.phoneNumber,
-        });
-        setIsEditing(false);
-        showSuccessNotification(message)
-      } else {
-        showErrorNotification( data.message )
-      }
-    } catch (error) {
-      showErrorNotification("There was an error updating.Please try again later");
-    }
-  };
   
   const handleLogout = async () => {
     try {
@@ -116,8 +77,6 @@ const showErrorNotification = (text) => {
     }
   };
  
-  
-
 
   const data = [
     {
@@ -152,68 +111,130 @@ const showErrorNotification = (text) => {
     },
   ];
 
-//   const [image,setImage] = useState("");
-//   const [picLoading, setPicLoading] = useState(false);
+  const [image, setImage] = useState(client?.image);
 
-//   const selectImage = () => {
-//     const options = {
-//         title: 'Select Image',
-//         storageOptions: {
-//             skipBackup: true,
-//             path: 'images',
-//         },
-//     };
+  const isBase64 = (str) => {
+    if (str.startsWith('data:image')) {
+      return true;
+    }
+    return false;
+  };
 
-//     launchImageLibrary(options, async(response) => {
-//         if (response.didCancel) {
-//             console.log('User cancelled image picker');
-//         } else if (response.error) {
-//             console.log('ImagePicker Error: ', response.error);
-//         } else {
-//       const source = { uri: response.uri };
-//       await uploadToCloudinary(source.uri);
-//         }
-//     });
-// };
+const uploadToCloudinary = async (uri) => {
+  console.log('==>', uri)
+  const formData = new FormData();
+  if (isBase64(uri)) {
+    formData.append('file', uri);
+  } else {
+    formData.append('file', {
+      uri,
+      type: 'image/jpeg',
+      name: 'profile.jpg',
+    });
+  }
+  formData.append("upload_preset", "better-you");
+  formData.append("cloud_name", "dbvffmwhe"); 
+  console.log(formData);
 
-// const uploadToCloudinary = async (uri) => {
-//   const formData = new FormData();
-//   formData.append('file', {
-//     uri,
-//     type: 'image/jpeg', 
-//     name: 'profile.jpg',
-//   });
-//   formData.append("upload_preset", "better-you");
-//   formData.append("cloud_name", "dbvffmwhe"); 
-
-//   try {
-//     const response = await fetch(
-//       `https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`,
-//       formData
-//     );
-//     if (response.data && response.data.secure_url) {
-//       const imageUrl = response.data.secure_url;
-//      setImage(imageUrl)
-//     } else {
-//       console.log('Failed to upload image to Cloudinary');
-//     }
-//   } catch (error) {
-//     console.log('Error uploading to Cloudinary: ', error);
-//   }
-// };
+  try {
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/dbvffmwhe/image/upload`,{
+      method: 'POST',
+      body:formData
+    }
+    );
+    const data = await response.json();
+    console.log('====>', data)
+    if (data) {
+      setImage(data.secure_url); 
+    } else {
+      console.log('Failed to upload image to Cloudinary:', data);
+    }
+  } catch (error) {
+    console.log('Error uploading to Cloudinary: ', error);
+  }
+};
 
 
 
+const selectImage = () => {
+  const options = {
+    mediaType: 'photo',
+    quality: 1,
+  };
 
+  launchImageLibrary(options, async(response) => {
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    } else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    } else if (response.assets && response.assets.length > 0) {
+      const source = { uri: response.assets[0].uri };
+      console.log("source ==>",source)
+      await uploadToCloudinary(source.uri); 
+    }
+  });
+};
+
+
+const handleSave = async () => {
+  const token = await AsyncStorage.getItem("token");
+  try {
+    const response = await fetch("https://therapy-app-backend.vercel.app/api/clients/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        username: client.username,
+        phoneNumber: client.phoneNumber,
+        password: client.password,
+        email: client.email,
+        image: image,
+        clientId: client._id,
+      }),
+    });
+
+    if (response.status === 200) {
+      const { clientData ,newPassword,message} = await response.json();
+      setClient({
+        ...client,
+        email: clientData.email,
+        password: newPassword,
+        username: clientData.username,
+        phoneNumber: clientData.phoneNumber,
+      });
+      setIsEditing(false);
+      showSuccessNotification(message)
+    } else {
+      showErrorNotification( data.message )
+    }
+  } catch (error) {
+    showErrorNotification("There was an error updating.Please try again later");
+  }
+};
   
   return (
     <View style={styles.container}>
       <View>
-  
+      {isEditing ? (
+    <TouchableOpacity onPress={selectImage}>
       <Image
-        source={{ uri: client && client.image ? client.image : 'YOUR_FALLBACK_IMAGE_URL'}}
+        source={{ uri: image || 'default-image-url-here' }} // Replace with your default image URL
         style={styles.accountProfile}
       />
+    </TouchableOpacity>
+  ) : (
+    <Image
+      source={{ uri: client?.image || 'default-image-url-here' }} // Replace with your default image URL
+      style={styles.accountProfile}
+    />
+  )}
+      {/* <Image
+        source={{ uri: client && client.image ? client.image : 'https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_640.png'}}
+        style={styles.accountProfile}
+      /> */}
   
         <TouchableOpacity onPress={() => setIsEditing(true)}>
           <Image
@@ -268,7 +289,7 @@ const showErrorNotification = (text) => {
           <Text style={styles.menuPrice}></Text>
         </TouchableOpacity>
       </View>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast  />
     </View>
   );
 }

@@ -124,7 +124,7 @@ const showErrorNotification = (text) => {
           <Text style={styles.alternativeAuthText}>SignUp</Text>
         </TouchableOpacity>
       </View>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast  />
     </View>
   );
 }

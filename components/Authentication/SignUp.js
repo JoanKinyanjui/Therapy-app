@@ -179,7 +179,7 @@ const showErrorNotification = (text) => {
           />
         </View>
       </View>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast />
     </View>
   );
 }

@@ -245,7 +245,7 @@ const [currentGroup, setCurrentGroup] = useState(null);
         )}
         keyExtractor={(item) => item._id}
       />
-          <Toast ref={(ref) => Toast.setRef(ref)} />
+          <Toast  />
     </View>
   );
 }

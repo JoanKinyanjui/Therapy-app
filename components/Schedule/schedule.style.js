@@ -10,24 +10,23 @@ const styles = StyleSheet.create({
   },
   TabPanelDiv: {
     flex: 1,
-    flexDirection:"row",
+    flexDirection: "row",
     marginBottom: 20,
-    backgroundColor:"white",
-    borderRadius:30,
-    marginHorizontal:30
-
+    backgroundColor: "white",
+    borderRadius: 30,
+    marginHorizontal: 30,
   },
-  TabPanel:{
-   flex:1,
+  TabPanel: {
+    flex: 1,
   },
-  TabPanel1:{
-    flex:1,
-   },
-  TabPanelBorder:{
-   width:"100%",
-   flex:1,
-   borderRadius: 30,
-   alignSelf:"center",
+  TabPanel1: {
+    flex: 1,
+  },
+  TabPanelBorder: {
+    width: "100%",
+    flex: 1,
+    borderRadius: 30,
+    alignSelf: "center",
   },
   sheduleHeading: {
     fontSize: 14,
@@ -35,11 +34,11 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     alignSelf: "center",
     marginVertical: 15,
-    paddingHorizontal:5,
+    paddingHorizontal: 5,
   },
   appointmentCard: {
     width: 300,
-    height: 140,
+    height: 130,
     backgroundColor: "gainsboro",
     alignSelf: "center",
     borderRadius: 8,
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
   },
   pastAppointmentCard: {
     width: 300,
-    height: 140,
+    height: 170,
     backgroundColor: "gainsboro",
     alignSelf: "center",
     marginBottom: 20,
@@ -79,9 +78,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   ProfileImage: {
-    width: 55,
-    height: 55,
-    borderRadius:55
+    width: 50,
+    height: 50,
+    borderRadius: 55,
   },
   partTwoDiv: {
     flex: 1,
@@ -109,23 +108,57 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   timeIcons: {
-    width: 20,
-    height: 20,
+    width: 15,
+    height: 15,
   },
   dateText: {
     fontSize: SIZES.small,
     color: COLORS.uni,
   },
-  starsDiv:{
-    flex:1,
-    flexDirection:"row",
-    justifyContent:"flex-start",
-    gap:5,
-      },
-      starsInAppointment:{
-        width:12,
-        height:12,
-      },
+  starsDiv: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    gap: 5,
+  },
+  starsInAppointment: {
+    width: 12,
+    height: 12,
+  },
+  partThreeDiv: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+ 
+  JoinButtonDiv: {
+    flex: 1, 
+    borderColor: COLORS.tertiary,
+    borderWidth: 1,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal:5,
+    paddingHorizontal: 10,
+  },
+  JoinButtonDivSpecial: {
+    backgroundColor:"black",
+    flex: 1, 
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal:5,
+    paddingHorizontal: 10,
+  },
+  buttonTextSpecial: {
+    fontSize:12,
+    color:"white",
+   },
+  buttonText: {
+   fontSize:12,
+  },
 });
 
 export default styles;

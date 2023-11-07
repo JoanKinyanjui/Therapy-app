@@ -17,7 +17,7 @@ const LoadingComponent = () => {
         useNativeDriver: false,
       }),
     ]).start(() => {
-      animate();  // Loop the animation
+      animate(); 
     });
   };
 
