@@ -9,9 +9,9 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 function HomePage() {
   return (
   
-    <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <SafeAreaView style={{ flex: 1 }}>
+    <Stack.Screen options={{ headerShown: false }} />
+    <CustomHeader title="Home" showAccountPic />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}
@@ -23,7 +23,7 @@ function HomePage() {
       </ScrollView>
       <CustomHeader title="Home" showAccountPic />
       <BottomNav />
-    </View>
+ </SafeAreaView>
  
   );
 }

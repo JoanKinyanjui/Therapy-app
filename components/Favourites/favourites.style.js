@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
      width:"100%",
      height:"screenHeight",
      fontFamily:"System",
-     marginTop:85,
+     marginTop:15,
     },
     favouritescontainer:{
         height:"screenHeight",

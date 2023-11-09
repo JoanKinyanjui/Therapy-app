@@ -9,8 +9,8 @@ import PeerGroup from "../components/Peer/PeerGroups";
 function peer() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <Stack.Screen options={{ headerShown: false }} />
+    <CustomHeader title="Peer Groups" showAccountPic />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}
@@ -20,7 +20,6 @@ function peer() {
           <PeerGroup />
         </Background>
       </ScrollView>
-      <CustomHeader title="Peer Groups" showAccountPic />
       <BottomNav />
     </SafeAreaView>
   );

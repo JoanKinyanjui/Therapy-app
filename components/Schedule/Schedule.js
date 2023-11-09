@@ -151,7 +151,7 @@ if (error) {
              </View>
        </View>
 
-       <View style={styles.partThreeDiv}>
+       <View style={styles.partThreeDivTwo}>
        <TouchableOpacity style={styles.JoinButtonDivSpecial} onPress={handlePress}>
       <Text style={styles.buttonTextSpecial}>Join</Text>
     </TouchableOpacity>
@@ -214,7 +214,7 @@ if (error) {
                     </View>
                  </View>
            </View>
-           <View style={styles.partThreeDiv}>
+           <View style={styles.partThreeDivTwo}>
     <TouchableOpacity style={styles.JoinButtonDiv}>
       <Text style={styles.buttonText}>Book A gain</Text>
     </TouchableOpacity>

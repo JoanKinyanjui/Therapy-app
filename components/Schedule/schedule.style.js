@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "screenHeight",
     fontFamily: "System",
-    marginTop: 85,
+    marginTop: 15,
   },
   TabPanelDiv: {
     flex: 1,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   sheduleHeading: {
     fontSize: 14,
     color: COLORS.uni,
-    fontWeight: 500,
+    fontWeight: "500",
     alignSelf: "center",
     marginVertical: 15,
     paddingHorizontal: 5,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   pastAppointmentCard: {
     width: 300,
-    height: 170,
+    height: 180,
     backgroundColor: "gainsboro",
     alignSelf: "center",
     marginBottom: 20,
@@ -91,8 +91,9 @@ const styles = StyleSheet.create({
   dateandTime: {
     color: COLORS.secondary,
     fontSize: SIZES.small,
-    fontWeight: 600,
+    fontWeight: 'bold',
     paddingVertical: 5,
+    marginLeft:5,
   },
   partThreeDiv: {
     flex: 1,
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
+    marginLeft:5,
+    marginTop:5,
   },
   timeIcons: {
     width: 15,
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: SIZES.small,
     color: COLORS.uni,
+    marginHorizontal:5
   },
   starsDiv: {
     flex: 1,
@@ -125,12 +128,12 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
   },
-  partThreeDiv: {
+  partThreeDivTwo: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    marginVertical:5,
   },
  
   JoinButtonDiv: {

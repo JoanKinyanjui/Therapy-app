@@ -11,7 +11,7 @@ function favourites() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
     <Stack.Screen options={{ headerShown: false }} />
-
+    <CustomHeader title="Favourites" showBackButton/>
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 70 }}
@@ -21,7 +21,7 @@ function favourites() {
         <Favourites />
       </Background>
     </ScrollView>
-    <CustomHeader title="Favourites" showBackButton/>
+   
     <BottomNav />
   </SafeAreaView>
   )

@@ -8,10 +8,15 @@
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to make video calls.",
         "NSMicrophoneUsageDescription": "This app uses the microphone to capture audio during video calls."
-      }
+      },
+      "bundleIdentifier": "com.jokinyanjui.therapyapp"
     },
     "android": {
-      "permissions": ["CAMERA", "RECORD_AUDIO"]
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO"
+      ],
+      "package": "com.jokinyanjui.therapyapp"
     },
     "plugins": [
       "expo-router"
@@ -20,6 +25,14 @@
     "slug": "therapy-app",
     "assetBundlePatterns": [
       "assets/fonts/"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "1ba3989a-7c77-4589-9986-9ea56a72ddbb"
+      }
+    }
   }
 }

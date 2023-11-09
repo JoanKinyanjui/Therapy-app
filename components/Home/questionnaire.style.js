@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     height: "screenHeight",
     position: "relative",
     fontFamily:"System",
-    marginTop: 85,
+    marginTop: 15,
   },
   topContainer: {
     width: "90%",

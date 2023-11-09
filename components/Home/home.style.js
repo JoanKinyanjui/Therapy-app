@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "screenHeight",
-    paddingTop: 60,
     flex: 1,
   },
   containerOne: {
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
   },
   paraThree: {
     fontSize: SIZES.small,
-    // fontWeight: 400,
     color: COLORS.tertiary,
     alignSelf: "center",
     marginVertical: 5,
@@ -258,7 +256,6 @@ const styles = StyleSheet.create({
   topTHerapistProfile: {
     flex: 1,
     flexDirection: "column",
-    paddingTop: 60,
     justifyContent: "center",
     gap: 10,
     paddingBottom: 20,

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
       container:{
      width:"100%",
      fontFamily:"System",
-     marginTop:60 ,
+    //  marginTop:60 ,
      flex:1,
     },
     favouritescontainer:{
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#7CB7FD"
     },
     name:{
-     fontWeight:500,
+     fontWeight:"500",
     },
     time:{
     color:COLORS.tertiary,

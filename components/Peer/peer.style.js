@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: "screenHeight",
-        paddingTop: 60,
       },
     serachDiv: {
         paddingHorizontal: 30,

@@ -3,7 +3,7 @@ import { COLORS, FONTS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
   header: {
-    position: "absolute",
+    // position: "absolute",
     top: 0,
     height: 80,
     width: "100%",

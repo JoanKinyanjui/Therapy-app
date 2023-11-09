@@ -10,8 +10,8 @@ import CustomHeader from '../components/CustomHeader/CustomHeader'
 function schedule() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <Stack.Screen options={{ headerShown: false }} />
+    <CustomHeader title="Schedule" showBackButton/>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}
@@ -21,7 +21,6 @@ function schedule() {
           <Schedule />
         </Background>
       </ScrollView>
-      <CustomHeader title="Schedule" showBackButton/>
       <BottomNav />
     </SafeAreaView>
   )

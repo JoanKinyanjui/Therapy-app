@@ -9,8 +9,8 @@ import CustomHeader from '../components/CustomHeader/CustomHeader'
 function match() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <Stack.Screen options={{ headerShown: false }} />
+    <CustomHeader title="Match" showBackButton/>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}

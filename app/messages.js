@@ -9,8 +9,8 @@ import CustomHeader from "../components/CustomHeader/CustomHeader";
 function home() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <Stack.Screen options={{ headerShown: false }} />
+    <CustomHeader title="Messages" showBackButton />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}
@@ -20,7 +20,6 @@ function home() {
           <Messages  />
         </Background>
       </ScrollView>
-      <CustomHeader title="Messages" showBackButton />
       <BottomNav />
     </SafeAreaView>
   );

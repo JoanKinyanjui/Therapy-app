@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
    alternativeAuthText:{
     fontFamily:"System",
     color:COLORS.primary,
-    fontWeight:600,
+    fontWeight:'bold',
     marginLeft:10,
     fontSize:SIZES.small,
     },
